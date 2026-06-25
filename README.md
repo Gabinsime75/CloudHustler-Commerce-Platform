@@ -127,7 +127,7 @@ Transform reactive operations into intelligent, automated incident management.
 
 ## 🏗️ Architecture Diagram
 
-![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/01_cloudhustler-commerce-Platform-arch-v7.jpg)
+![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/01_cloudhustler-commerce-Platform-arch-v7.jpg)
 
 ## 🛠️ Technology Stack
 
