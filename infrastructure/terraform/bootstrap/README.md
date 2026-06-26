@@ -1,9 +1,7 @@
-````markdown
+
 # 🚀 Bootstrap Backend
 
 The **Bootstrap Backend** is the foundation of the CloudHustler Commerce Platform infrastructure. It provisions the AWS resources required for Terraform to securely manage infrastructure using a remote backend. Once deployed, every Terraform root module shares the same backend for centralized state management, encryption, and state locking.
-
----
 
 ## 🎯 Purpose
 
@@ -29,8 +27,6 @@ It creates:
   - Supports Point-in-Time Recovery (PITR).
   - Supports server-side encryption.
 
----
-
 ## ❓ Why is a Bootstrap Deployment Needed?
 
 Terraform cannot use a remote backend until the backend infrastructure already exists.
@@ -43,13 +39,11 @@ This creates a dependency problem:
 
 The bootstrap deployment solves this problem by using a temporary local state to provision the backend resources. Once deployed, Terraform migrates the local state to the remote backend, allowing every future deployment to use centralized state management.
 
----
-
 ## 🚀 Deployment Steps
 
 ### 1. Navigate to the Bootstrap Directory
 
-```bash
+```
 cd infrastructure/terraform/bootstrap/backend
 ```
 
@@ -71,7 +65,7 @@ Review the resources that Terraform will create before applying any changes.
 
 ### 4. Deploy the Bootstrap Infrastructure
 
-```bash
+```
 terraform apply
 ```
 
@@ -85,13 +79,11 @@ Terraform will provision:
 
 ### 5. Verify the Deployment
 
-```bash
+```
 terraform output
 ```
 
 Verify that Terraform returns the expected outputs.
-
----
 
 ## 🔄 Backend Migration
 
@@ -99,7 +91,7 @@ After the bootstrap deployment completes successfully, every Terraform root modu
 
 Example `backend.tf`:
 
-```hcl
+```  
 terraform {
 
   backend "s3" {
@@ -117,7 +109,7 @@ terraform {
 
 Reinitialize Terraform:
 
-```bash
+```
 terraform init
 ```
 
@@ -126,8 +118,6 @@ Terraform will detect the backend configuration change and prompt to migrate the
 Approve the migration when prompted.
 
 Once completed, Terraform will store all future state files in the remote backend.
-
----
 
 ## 📤 Outputs
 
@@ -144,7 +134,7 @@ The bootstrap deployment exports the following outputs:
 
 These outputs can be referenced by automation pipelines or other infrastructure components if needed.
 
----
+
 
 ## 🛠️ Common Troubleshooting
 
@@ -158,11 +148,9 @@ The Amazon S3 bucket already exists within your AWS account, but Terraform is no
 
 Import the bucket into the Terraform state.
 
-```bash
+```
 terraform import module.s3.aws_s3_bucket.s3_bucket <bucket-name>
 ```
-
----
 
 ### Resource Already Exists
 
@@ -174,11 +162,9 @@ The resource was previously created manually or the Terraform state file was los
 
 Import the existing resource into Terraform.
 
-```bash
+```
 terraform import <resource-address> <resource-id>
 ```
-
----
 
 ### State Lock Error
 
@@ -190,11 +176,9 @@ Another Terraform operation currently holds the DynamoDB state lock.
 
 Wait for the current operation to complete or remove the stale lock.
 
-```bash
+```
 terraform force-unlock <LOCK_ID>
 ```
-
----
 
 ### Access Denied
 
@@ -205,8 +189,6 @@ Verify that the IAM principal has permissions for:
 - Amazon DynamoDB
 - AWS IAM
 - AWS STS
-
----
 
 ## 🌐 Consuming the Backend
 
@@ -244,4 +226,4 @@ Benefits include:
 - KMS encryption.
 - Versioned state history.
 - Safe collaboration across engineering teams.
-````
+
