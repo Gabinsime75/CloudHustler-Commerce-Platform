@@ -43,6 +43,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3_sse_config" {
 
     bucket_key_enabled = var.enable_bucket_key
   }
+
 }
 
 # Versioning

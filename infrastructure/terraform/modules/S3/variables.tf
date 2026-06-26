@@ -47,6 +47,7 @@ variable "logging_prefix" {
 variable "lifecycle_enabled" {
   description = "value"
   type        = bool
+  default     = true
 }
 
 variable "noncurrent_version_expiration_days" {
