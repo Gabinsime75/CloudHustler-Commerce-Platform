@@ -78,7 +78,106 @@
 #     Environment = "Lab"
 #     Project     = "CloudHustler"
 #     ManagedBy   = "Terraform"
+#   }
+# }
+
+## IAM Module Test-----------------------------------
+# module "iam" {
+
+#   source = "../modules/iam"
+
+
+#   # Role
+#   role_name        = "cloudhustler-ec2-role"
+#   role_description = "IAM Role for CloudHustler EC2 instances"
+
+#   # Trust Policy
+#   trusted_services = [
+#     "ec2.amazonaws.com"
+#   ]
+
+#   # IAM Policy
+#   policy_name        = "cloudhustler-ec2-policy"
+#   policy_description = "Policy for CloudHustler EC2 instances"
+
+#   policy_document = jsonencode({
+
+#     Version = "2012-10-17"
+
+#     Statement = [
+
+#       {
+
+#         Effect = "Allow"
+
+#         Action = [
+
+#           "s3:ListBucket",
+#           "s3:GetObject"
+
+#         ]
+
+#         Resource = "*"
+
+#       }
+
+#     ]
+
+#   })
+
+
+#   # Instance Profile
+#   create_instance_profile = true
+
+#   # Permission Boundary
+#   create_permission_boundary = true
+
+#   permission_boundary_name = "cloudhustler-permission-boundary"
+
+#   permission_boundary_policy = jsonencode({
+
+#     Version = "2012-10-17"
+
+#     Statement = [
+
+#       {
+
+#         Effect = "Allow"
+
+#         Action = "*"
+
+#         Resource = "*"
+
+#       }
+
+#     ]
+
+#   })
+
+#   # Tags
+#   tags = {
+
+#     Project     = "CloudHustler"
+#     Environment = "Test"
 
 #   }
 
 # }
+
+## Organization Testing------------------------------------------
+#############################################
+# AWS Organization Test
+# ##
+
+## Governance Testing------------------------------------------
+
+module "governance" {
+
+  source = "../../terraform/governance"
+  organization_id           = var.organization_id
+  cloudtrail_s3_bucket_name = var.cloudtrail_s3_bucket_name
+  cloudtrail_kms_key_arn    = var.cloudtrail_kms_key_arn
+  config_s3_bucket_name     = var.config_s3_bucket_name
+  config_service_role_arn   = var.config_service_role_arn
+
+}

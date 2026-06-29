@@ -48,3 +48,66 @@
 # output "hash_key" {
 #   value = module.dynamodb.hash_key
 # }
+
+## IAM Module Test-----------------------------------
+# output "role_name" {
+#   value = module.iam.role_name
+# }
+
+# output "role_arn" {
+#   value = module.iam.role_arn
+# }
+
+# output "policy_arn" {
+#   value = module.iam.policy_arn
+# }
+
+# output "instance_profile_name" {
+#   value = module.iam.instance_profile_name
+# }
+
+# output "permission_boundary_arn" {
+
+#   value = module.iam.permission_boundary_arn
+
+# }
+
+## Organization Testing------------------------------------------
+
+
+## Governance Testing------------------------------------------
+output "cloudtrail_arn" {
+
+  value = module.governance.cloudtrail_arn
+
+}
+
+output "config_recorder_name" {
+
+  value = module.governance.config_recorder_name
+
+}
+
+output "guardduty_detector_id" {
+
+  value = module.governance.guardduty_detector_id
+
+}
+
+output "securityhub_account_id" {
+
+  value = module.governance.securityhub_account_id
+
+}
+
+output "access_analyzer_arn" {
+
+  value = module.governance.access_analyzer_arn
+
+}
+
+output "detective_graph_arn" {
+
+  value = module.governance.detective_graph_arn
+
+}
