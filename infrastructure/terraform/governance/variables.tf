@@ -1,78 +1,49 @@
-#############################################
-# AWS Configuration
-#############################################
+###############################################################
+# General
+###############################################################
+
+variable "project_name" {
+  description = "Project name."
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment."
+  type        = string
+}
 
 variable "aws_region" {
+  description = "AWS region."
+  type        = string
+}
 
-  description = "AWS Region."
-
-  type = string
-
-  default = "us-east-2"
-
+variable "tags" {
+  description = "Common resource tags."
+  type        = map(string)
+  default     = {}
 }
 
 #############################################
-# Organization
+# AWS
 #############################################
 
-variable "organization_id" {
+# variable "aws_region" {
 
-  description = "AWS Organization ID."
+#   description = "AWS Region."
 
-  type = string
+#   type = string
 
-}
-
-#############################################
-# AWS Config
-#############################################
-
-variable "enable_config" {
-
-  description = "Enable AWS Config."
-
-  type = bool
-
-  default = true
-
-}
-
-variable "config_service_role_arn" {
-
-  description = "AWS Config service role ARN."
-
-  type = string
-
-}
-
-variable "config_bucket_name" {
-
-  description = "AWS Config S3 bucket."
-
-  type = string
-
-}
-
-variable "config_kms_key_arn" {
-
-  description = "AWS Config KMS key ARN."
-
-  type = string
-
-}
+# }
 
 #############################################
 # CloudTrail
 #############################################
 
-variable "enable_cloudtrail" {
+variable "cloudtrail_name" {
 
-  description = "Enable AWS CloudTrail."
+  description = "CloudTrail name."
 
-  type = bool
-
-  default = true
+  type = string
 
 }
 
@@ -84,9 +55,41 @@ variable "cloudtrail_bucket_name" {
 
 }
 
-variable "cloudtrail_kms_key_arn" {
+variable "cloudtrail_role_name" {
 
-  description = "CloudTrail KMS key ARN."
+  description = "CloudTrail service role."
+
+  type = string
+
+}
+
+#############################################
+# AWS Config
+#############################################
+
+variable "config_bucket_name" {
+
+  description = "AWS Config S3 bucket."
+
+  type = string
+
+}
+
+variable "config_role_name" {
+
+  description = "AWS Config service role."
+
+  type = string
+
+}
+
+#############################################
+# KMS
+#############################################
+
+variable "kms_key_arn" {
+
+  description = "KMS Key ARN."
 
   type = string
 
@@ -96,13 +99,11 @@ variable "cloudtrail_kms_key_arn" {
 # GuardDuty
 #############################################
 
-variable "enable_guardduty" {
+variable "guardduty_role_name" {
 
-  description = "Enable GuardDuty."
+  description = "GuardDuty service role."
 
-  type = bool
-
-  default = true
+  type = string
 
 }
 
@@ -110,41 +111,35 @@ variable "enable_guardduty" {
 # Security Hub
 #############################################
 
-variable "enable_securityhub" {
+variable "securityhub_role_name" {
 
-  description = "Enable Security Hub."
+  description = "Security Hub service role."
 
-  type = bool
-
-  default = true
+  type = string
 
 }
 
 #############################################
-# IAM Access Analyzer
+# Access Analyzer
 #############################################
 
-variable "enable_access_analyzer" {
+variable "access_analyzer_name" {
 
-  description = "Enable IAM Access Analyzer."
+  description = "IAM Access Analyzer name."
 
-  type = bool
-
-  default = true
+  type = string
 
 }
 
 #############################################
-# Amazon Detective
+# Config Aggregator
 #############################################
 
-variable "enable_detective" {
+variable "config_aggregator_name" {
 
-  description = "Enable Amazon Detective."
+  description = "Config Aggregator name."
 
-  type = bool
-
-  default = true
+  type = string
 
 }
 
@@ -152,12 +147,17 @@ variable "enable_detective" {
 # Tags
 #############################################
 
-variable "tags" {
+# variable "tags" {
 
-  description = "Additional resource tags."
+#   description = "Common resource tags."
 
-  type = map(string)
+#   type = map(string)
 
-  default = {}
+# }
 
+variable "enable_config_delivery_policy" {
+  description = "Attach the AWS Config delivery bucket policy."
+  type        = bool
+  default     = false
 }
+

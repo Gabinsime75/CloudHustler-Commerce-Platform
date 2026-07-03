@@ -23,6 +23,7 @@ module "cloudtrail_service_role" {
 
         Action = [
           "logs:CreateLogGroup",
+          "logs:DescribeLogStreams",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]

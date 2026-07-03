@@ -1,7 +1,7 @@
 # Generic trust policy support
 data "aws_iam_policy_document" "trust_policy" {
 
-  
+
   # AWS Service Principals
   dynamic "statement" {
 

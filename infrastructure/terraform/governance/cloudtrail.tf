@@ -1,70 +1,25 @@
-#############################################
-# AWS CloudTrail
-#############################################
+###############################################################
+# CloudTrail
+###############################################################
 
-resource "aws_cloudtrail" "this" {
+module "cloudtrail" {
 
-  count = var.enable_cloudtrail ? 1 : 0
+  source = "../modules/cloudtrail"
 
-  name = "cloudhustler-organization-trail"
+  trail_name     = local.cloudtrail_name
+  s3_bucket_name = module.cloudtrail_bucket.bucket_name
 
-  ###########################################
-  # Organization Trail
-  ###########################################
+  kms_key_id = module.governance_kms.key_arn
 
-  is_organization_trail = true
-  is_multi_region_trail = true
-
-  ###########################################
-  # Logging
-  ###########################################
-
-  enable_logging                = true
+  is_multi_region_trail         = true
   include_global_service_events = true
+  enable_log_file_validation    = true
+  enable_logging                = true
 
-  ###########################################
-  # Log File Validation
-  ###########################################
+  cloud_watch_logs_group_arn = module.cloudtrail_log_group.log_group_arn
 
-  enable_log_file_validation = true
+  cloud_watch_logs_role_arn = module.cloudtrail_service_role.role_arn
 
-  ###########################################
-  # Event Selection
-  ###########################################
-
-  event_selector {
-
-    read_write_type           = "All"
-    include_management_events = true
-
-  }
-
-  ###########################################
-  # Storage
-  ###########################################
-
-  s3_bucket_name = var.cloudtrail_bucket_name
-
-  kms_key_id = var.cloudtrail_kms_key_arn
-
-  ###########################################
-  # Tags
-  ###########################################
-
-  tags = merge(
-
-    local.common_tags,
-
-    var.tags,
-
-    {
-
-      Name    = "cloudhustler-organization-trail"
-      Service = "CloudTrail"
-
-    }
-
-  )
+  tags = local.common_tags
 
 }
-

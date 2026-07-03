@@ -2,7 +2,7 @@
 resource "aws_dynamodb_table" "dynamodb_table" {
   name         = var.table_name
   billing_mode = var.billing_mode
-  hash_key = var.hash_key
+  hash_key     = var.hash_key
 
   attribute {
 
@@ -10,7 +10,7 @@ resource "aws_dynamodb_table" "dynamodb_table" {
     type = "S"
   }
 
-  table_class = var.table_class
+  table_class                 = var.table_class
   deletion_protection_enabled = var.deletion_protection_enabled
 
   # Server Side Encryption
@@ -23,7 +23,7 @@ resource "aws_dynamodb_table" "dynamodb_table" {
   point_in_time_recovery {
     enabled = var.point_in_time_recovery_enabled
   }
-  
+
   tags = var.tags
 }
 

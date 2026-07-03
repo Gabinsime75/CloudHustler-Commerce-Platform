@@ -7,8 +7,8 @@ resource "aws_kms_key" "kms_key" {
   enable_key_rotation     = var.enable_key_rotation
   deletion_window_in_days = var.deletion_window_in_days
 
-  multi_region            = var.multi_region
-  is_enabled              = var.is_enabled
+  multi_region             = var.multi_region
+  is_enabled               = var.is_enabled
   customer_master_key_spec = var.customer_master_key_spec
 
   tags = var.tags

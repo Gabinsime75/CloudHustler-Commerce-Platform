@@ -1,142 +1,75 @@
-#############################################
-# AWS Config
-#############################################
+###############################################################
+# Config Bucket Policy
+###############################################################
 
-resource "aws_config_configuration_recorder" "this" {
+data "aws_iam_policy_document" "config_bucket_policy" {
 
-  count = var.enable_config ? 1 : 0
+  statement {
 
-  name = "cloudhustler-config-recorder"
+    sid    = "AWSConfigBucketPermissionsCheck"
+    effect = "Allow"
 
-  role_arn = var.config_service_role_arn
+    principals {
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
+    }
 
-  recording_group {
+    actions = [
+      "s3:GetBucketAcl"
+    ]
 
-    all_supported                 = true
-    include_global_resource_types = true
-
+    resources = [
+      module.config_bucket.bucket_arn
+    ]
   }
 
+  statement {
+
+    sid    = "AWSConfigBucketDelivery"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
+    }
+
+    actions = [
+      "s3:PutObject"
+    ]
+
+    resources = [
+      "${module.config_bucket.bucket_arn}/AWSLogs/*"
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "s3:x-amz-acl"
+
+      values = [
+        "bucket-owner-full-control"
+      ]
+    }
+  }
 }
 
-#############################################
-# AWS Config Delivery Channel
-#############################################
 
-resource "aws_config_delivery_channel" "this" {
 
-  count = var.enable_config ? 1 : 0
+###############################################################
+# AWS Config
+###############################################################
 
-  name = "cloudhustler-config-delivery-channel"
+module "aws_config" {
 
-  s3_bucket_name = var.config_bucket_name
+  source = "../modules/aws-config"
 
-  s3_kms_key_arn = var.config_kms_key_arn
+  configuration_recorder_name = local.config_recorder_name
 
-  depends_on = [
+  delivery_channel_name = local.config_delivery_channel_name
 
-    aws_config_configuration_recorder.this
+  s3_bucket_name = module.config_bucket.bucket_name
 
-  ]
+  iam_role_arn = module.config_service_role.role_arn
 
-}
-
-#############################################
-# AWS Config Configuration Recorder Status
-#############################################
-
-resource "aws_config_configuration_recorder_status" "this" {
-
-  count = var.enable_config ? 1 : 0
-
-  name = aws_config_configuration_recorder.this[0].name
-
-  is_enabled = true
-
-  depends_on = [
-
-    aws_config_delivery_channel.this
-
-  ]
+  tags = local.common_tags
 
 }
-
-###########################################################
-# Explanation
-###########################################################
-#
-# This configuration enables AWS Config for the
-# CloudHustler Commerce Platform.
-#
-# AWS Config continuously records AWS resource
-# configurations, tracks configuration changes,
-# and provides the foundation for governance,
-# compliance monitoring, auditing, and security
-# posture management.
-#
-###########################################################
-# Features
-###########################################################
-#
-# • Configuration Recorder
-#   Records the configuration of supported AWS
-#   resources across the account.
-#
-# • Global Resource Recording
-#   Includes global resource types such as IAM
-#   users, groups, roles, and policies.
-#
-# • Delivery Channel
-#   Delivers configuration snapshots and change
-#   notifications to a centralized Amazon S3 bucket.
-#
-# • AWS KMS Encryption
-#   Encrypts configuration snapshots using a
-#   customer-managed AWS KMS key.
-#
-# • Automatic Recording
-#   Automatically enables the configuration
-#   recorder after the delivery channel is created.
-#
-###########################################################
-# Architecture
-###########################################################
-#
-# This configuration only enables and configures
-# AWS Config.
-#
-# It intentionally does NOT create:
-#
-# • Amazon S3 Bucket
-# • AWS KMS Key
-# • IAM Service Role
-#
-# These resources are provisioned by earlier
-# platform layers and supplied to Governance
-# through Terraform variables.
-#
-###########################################################
-# Dependencies
-###########################################################
-#
-# Bootstrap Layer
-#
-# • KMS Module
-#   Provides the customer-managed KMS key used
-#   to encrypt AWS Config snapshots.
-#
-# • S3 Module
-#   Provides the centralized AWS Config bucket.
-#
-# Identity Layer
-#
-# • Config Service Role Module
-#   Provides the IAM role required by AWS Config
-#   to record and deliver configuration data.
-#
-# This keeps the Governance layer focused solely
-# on configuring governance services while
-# reusing the foundational infrastructure built
-# during earlier phases of the CloudHustler
-# Commerce Platform.
-#

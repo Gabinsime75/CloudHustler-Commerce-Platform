@@ -19,7 +19,7 @@ output "table_id" {
 output "hash_key" {
   description = "Partition key of the DynamoDB table."
   value       = aws_dynamodb_table.dynamodb_table
-} 
+}
 
 
 # These outputs provide

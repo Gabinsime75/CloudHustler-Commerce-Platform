@@ -43,7 +43,7 @@ variable "server_side_encryption_enabled" {
 variable "kms_key_arn" {
   description = "ARN of the customer-managed KMS key used for table encryption."
   type        = string
-  default = "arn:aws:kms:us-east-2:396913735153:key/414bda13-ddba-4616-a85d-289fce669e48"
+  default     = "arn:aws:kms:us-east-2:396913735153:key/414bda13-ddba-4616-a85d-289fce669e48"
 }
 
 # Table Class

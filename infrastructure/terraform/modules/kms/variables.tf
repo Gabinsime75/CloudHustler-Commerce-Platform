@@ -1,23 +1,25 @@
 # Helps identify the key's purpose in AWS.
 #---------------------------------------------------------
 variable "description" {
-  type = string
+  type        = string
   description = "Description of the KMS key."
+  default     = "KMS key created by Terraform."
 }
 
 # Provides a friendly name instead of the key ID.
 #------------------------------------------------------------
 variable "alias" {
-  type = string
+  type        = string
   description = "Alias for the KMS key."
+  default     = "alias/terraform-kms-key"
 }
 
 # Recommended for long-lived customer-managed keys.
 #---------------------------------------------------------------
 variable "enable_key_rotation" {
-  type = bool
+  type        = bool
   description = "Enable automatic annual key rotation."
-  default = true
+  default     = true
 }
 
 # Used for disaster recovery and cross-region replication.
@@ -25,7 +27,7 @@ variable "enable_key_rotation" {
 variable "multi_region" {
   type        = bool
   description = "Whether the KMS key should be Multi-Region."
-  default = false
+  default     = false
 }
 
 # Provides a recovery window for accidental deletions.
@@ -33,7 +35,7 @@ variable "multi_region" {
 variable "deletion_window_in_days" {
   type        = number
   description = "Number of days before the KMS key is permanently deleted."
-  default = 30
+  default     = 30
 
   validation {
     condition     = var.deletion_window_in_days >= 7 && var.deletion_window_in_days <= 30
@@ -46,7 +48,7 @@ variable "deletion_window_in_days" {
 variable "tags" {
   type        = map(string)
   description = "Map of tags applied to the KMS resources."
-  default = {}
+  default     = {}
 }
 
 # Disabled keys cannot be used for cryptographic operations.
@@ -54,7 +56,7 @@ variable "tags" {
 variable "is_enabled" {
   type        = bool
   description = "Whether the KMS key is enabled."
-  default = true
+  default     = true
 }
 
 # Defaults to a symmetric encryption key.
@@ -64,4 +66,10 @@ variable "customer_master_key_spec" {
   description = "KMS key specification."
 
   default = "SYMMETRIC_DEFAULT"
+}
+
+variable "aws_region" {
+  description = "AWS Region."
+  type        = string
+  default     = "us-east-2"
 }

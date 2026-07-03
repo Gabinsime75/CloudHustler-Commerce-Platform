@@ -1,131 +1,298 @@
-# Amazon S3 Module
+# 🚀 Amazon S3 Module
 
-## Overview
+The **Amazon S3 Module** provisions and manages production-ready Amazon S3 buckets for the CloudHustler Commerce Platform.
 
-This Terraform module provisions a secure, production-ready Amazon S3 bucket following AWS security best practices. It is designed to serve as a reusable building block for Terraform remote state, application storage, centralized logging, backups, static website assets, and data lake storage.
+The module provides a standardized, secure, and highly configurable way to deploy S3 buckets while following AWS Well-Architected Framework recommendations and security best practices.
 
-The module supports encryption using customer-managed AWS KMS keys, versioning, lifecycle management, server access logging, public access protection, and optional bucket policies.
-
----
-
-# Features
-
-- Creates an Amazon S3 bucket
-- Supports AWS KMS server-side encryption (SSE-KMS)
-- Supports S3 Bucket Keys to reduce KMS costs
-- Enforces bucket ownership controls
-- Blocks all public access
-- Supports bucket versioning
-- Supports lifecycle management
-- Supports server access logging
-- Supports optional bucket policies
-- Supports resource tagging
-- Reusable across multiple environments
+It supports everything from simple encrypted buckets to enterprise-grade storage solutions with lifecycle management, replication, inventory reporting, object locking, intelligent tiering, event notifications, static website hosting, and more.
 
 ---
 
-# Resources Created
+## 🎯 Purpose
 
-This module provisions the following AWS resources:
+This module provisions and manages:
 
-- `aws_s3_bucket`
-- `aws_s3_bucket_ownership_controls`
-- `aws_s3_bucket_public_access_block`
-- `aws_s3_bucket_server_side_encryption_configuration`
-- `aws_s3_bucket_versioning`
-- `aws_s3_bucket_lifecycle_configuration`
-- `aws_s3_bucket_logging`
-- `aws_s3_bucket_policy`
+- Amazon S3 Bucket
+- Bucket Ownership Controls
+- Public Access Block
+- Server-Side Encryption (SSE-S3 or SSE-KMS)
+- Bucket Versioning
+- Lifecycle Configuration
+- Server Access Logging
+- Static Website Hosting
+- Cross-Origin Resource Sharing (CORS)
+- Bucket Notifications
+- Cross-Region Replication
+- Intelligent Tiering
+- Inventory Reports
+- Storage Analytics
+- CloudWatch Request Metrics
+- Requester Pays
+- Object Lock
+- Transfer Acceleration
+- Bucket Policies
+- Bucket ACLs (optional)
+- Standardized outputs for downstream modules
 
 ---
 
-# Module Structure
+## 📂 Module Structure
 
 ```text
-s3/
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── versions.tf
-├── providers.tf
-└── README.md
+modules/
+└── s3/
+    ├── main.tf
+    ├── bucket.tf
+    ├── ownership_controls.tf
+    ├── public_access_block.tf
+    ├── encryption.tf
+    ├── versioning.tf
+    ├── lifecycle_configuration.tf
+    ├── logging.tf
+    ├── website.tf
+    ├── cors.tf
+    ├── notification.tf
+    ├── replication.tf
+    ├── intelligent_tiering.tf
+    ├── inventory.tf
+    ├── analytics.tf
+    ├── metrics.tf
+    ├── request_payment.tf
+    ├── object_lock.tf
+    ├── acceleration.tf
+    ├── policy.tf
+    ├── acl.tf
+    ├── variables.tf
+    ├── outputs.tf
+    └── README.md
 ```
 
 ---
 
-# Input Variables
+## 🏗 Resources Created
 
-| Variable | Description | Type |
-|----------|-------------|------|
-| `bucket_name` | Name of the S3 bucket | `string` |
-| `versioning_enabled` | Enable bucket versioning | `bool` |
-| `kms_key_arn` | ARN of the KMS key used for encryption | `string` |
-| `force_destroy` | Allow deletion of non-empty buckets | `bool` |
-| `enable_logging` | Enable server access logging | `bool` |
-| `logging_bucket` | Destination bucket for access logs | `string` |
-| `logging_prefix` | Prefix for server access logs | `string` |
-| `lifecycle_enabled` | Enable lifecycle rules | `bool` |
-| `noncurrent_version_expiration_days` | Days before deleting previous object versions | `number` |
-| `enable_public_access_block` | Enable S3 Block Public Access | `bool` |
-| `enable_bucket_key` | Enable S3 Bucket Keys | `bool` |
-| `bucket_policy` | Optional JSON bucket policy | `string` |
-| `tags` | Resource tags | `map(string)` |
+Depending on the configuration provided, this module may create:
+
+- aws_s3_bucket
+- aws_s3_bucket_ownership_controls
+- aws_s3_bucket_public_access_block
+- aws_s3_bucket_server_side_encryption_configuration
+- aws_s3_bucket_versioning
+- aws_s3_bucket_lifecycle_configuration
+- aws_s3_bucket_logging
+- aws_s3_bucket_website_configuration
+- aws_s3_bucket_cors_configuration
+- aws_s3_bucket_notification
+- aws_s3_bucket_replication_configuration
+- aws_s3_bucket_intelligent_tiering_configuration
+- aws_s3_bucket_inventory
+- aws_s3_bucket_analytics_configuration
+- aws_s3_bucket_metric
+- aws_s3_bucket_request_payment_configuration
+- aws_s3_bucket_object_lock_configuration
+- aws_s3_bucket_accelerate_configuration
+- aws_s3_bucket_policy
+- aws_s3_bucket_acl
 
 ---
 
-# Outputs
+## 📥 Inputs
+
+### Required
+
+| Name | Description | Type |
+|------|-------------|------|
+| bucket_name | Name of the S3 bucket | string |
+
+---
+
+### General
+
+| Name | Type | Default |
+|------|------|---------|
+| force_destroy | bool | false |
+| tags | map(string) | {} |
+
+---
+
+### Ownership
+
+| Name | Type | Default |
+|------|------|---------|
+| object_ownership | string | BucketOwnerEnforced |
+
+---
+
+### Public Access Block
+
+| Name | Type | Default |
+|------|------|---------|
+| enable_public_access_block | bool | true |
+| block_public_acls | bool | true |
+| ignore_public_acls | bool | true |
+| block_public_policy | bool | true |
+| restrict_public_buckets | bool | true |
+
+---
+
+### Encryption
+
+| Name | Type | Default |
+|------|------|---------|
+| enable_encryption | bool | true |
+| sse_algorithm | string | AES256 |
+| kms_key_arn | string | null |
+| bucket_key_enabled | bool | true |
+
+---
+
+### Versioning
+
+| Name | Type | Default |
+|------|------|---------|
+| versioning_status | string | Enabled |
+
+---
+
+### Lifecycle
+
+| Name | Type |
+|------|------|
+| lifecycle_rules | list(object(...)) |
+
+---
+
+### Logging
+
+| Name | Type |
+|------|------|
+| logging_configuration | object(...) |
+
+---
+
+### Website
+
+| Name | Type | Default |
+|------|------|---------|
+| enable_website | bool | false |
+| index_document | string | index.html |
+| error_document | string | error.html |
+
+---
+
+### CORS
+
+| Name | Type |
+|------|------|
+| cors_rules | list(object(...)) |
+
+---
+
+### Notifications
+
+| Name | Type |
+|------|------|
+| lambda_notifications | list(object(...)) |
+| sns_notifications | list(object(...)) |
+| sqs_notifications | list(object(...)) |
+
+---
+
+### Replication
+
+| Name | Type |
+|------|------|
+| replication_configuration | object(...) |
+
+---
+
+### Intelligent Tiering
+
+| Name | Type |
+|------|------|
+| intelligent_tiering | object(...) |
+
+---
+
+### Inventory
+
+| Name | Type |
+|------|------|
+| inventory_configuration | object(...) |
+
+---
+
+### Analytics
+
+| Name | Type |
+|------|------|
+| analytics_configuration | object(...) |
+
+---
+
+### Metrics
+
+| Name | Type |
+|------|------|
+| metrics_configuration | object(...) |
+
+---
+
+### Object Lock
+
+| Name | Type | Default |
+|------|------|---------|
+| enable_object_lock | bool | false |
+| object_lock_mode | string | GOVERNANCE |
+| object_lock_days | number | 30 |
+
+---
+
+### Miscellaneous
+
+| Name | Type | Default |
+|------|------|---------|
+| enable_transfer_acceleration | bool | false |
+| request_payer | string | BucketOwner |
+| enable_acl | bool | false |
+| acl | string | private |
+| attach_bucket_policy | bool | false |
+| bucket_policy | string | null |
+
+---
+
+## 📤 Outputs
+
+The module exports:
 
 | Output | Description |
 |---------|-------------|
-| `bucket_id` | ID of the S3 bucket |
-| `bucket_arn` | ARN of the S3 bucket |
-| `bucket_name` | Name of the S3 bucket |
-| `bucket_domain_name` | DNS name of the S3 bucket |
-| `regional_domain_name` | Regional DNS name of the S3 bucket |
+| bucket_id | Bucket ID |
+| bucket_name | Bucket name |
+| bucket_arn | Bucket ARN |
+| bucket_domain_name | Bucket DNS name |
+| bucket_regional_domain_name | Regional DNS name |
+| hosted_zone_id | Route 53 Hosted Zone ID |
+| website_endpoint | Website endpoint (if enabled) |
+| kms_key_arn | KMS Key ARN |
+| versioning_status | Bucket versioning status |
 
 ---
 
-# Security Features
+## 💡 Example Usage
 
-- Customer-managed AWS KMS encryption (SSE-KMS)
-- S3 Bucket Keys enabled
-- Bucket Ownership Controls
-- Block Public Access enabled
-- Bucket Versioning
-- Lifecycle management
-- Optional bucket policies
-- Server access logging
-- Resource tagging
-
----
-
-# Example Usage
+### Simple Bucket
 
 ```hcl
-module "s3" {
+module "artifacts_bucket" {
 
   source = "../modules/s3"
 
-  bucket_name                            = "cloudhustler-app-storage"
-  kms_key_arn                            = module.kms.kms_key_arn
-
-  versioning_enabled                     = true
-  enable_bucket_key                      = true
-  enable_public_access_block             = true
-
-  lifecycle_enabled                      = true
-  noncurrent_version_expiration_days     = 90
-
-  enable_logging                         = false
-  logging_bucket                         = null
-  logging_prefix                         = "logs/"
-
-  force_destroy                          = false
+  bucket_name = "cloudhustler-artifacts"
 
   tags = {
-    Environment = "Production"
-    Project     = "CloudHustler"
-    ManagedBy   = "Terraform"
+    Environment = "dev"
+    Terraform  = "true"
   }
 
 }
@@ -133,21 +300,156 @@ module "s3" {
 
 ---
 
-# Best Practices
+### Encrypted KMS Bucket
 
-- Use customer-managed KMS keys instead of SSE-S3 whenever possible.
-- Enable versioning to protect against accidental object deletion.
-- Keep Block Public Access enabled unless public access is explicitly required.
-- Enable lifecycle rules to reduce storage costs.
-- Enable server access logging for audit and compliance requirements.
-- Use consistent resource tags across all AWS infrastructure.
-- Grant access using IAM roles and bucket policies instead of ACLs.
+```hcl
+module "logs_bucket" {
+
+  source = "../modules/s3"
+
+  bucket_name = "cloudhustler-logs"
+
+  sse_algorithm = "aws:kms"
+
+  kms_key_arn = module.kms.key_arn
+
+}
+```
 
 ---
 
-# Notes
+### Versioned Bucket with Lifecycle Rules
 
-- This module follows AWS Well-Architected Framework recommendations.
-- Suitable for production, staging, and development environments.
-- Can be used for Terraform remote state, application storage, centralized logging, backup storage, and data lake workloads.
-- Designed as a reusable module for enterprise-scale infrastructure.
+```hcl
+module "backups_bucket" {
+
+  source = "../modules/s3"
+
+  bucket_name = "cloudhustler-backups"
+
+  versioning_status = "Enabled"
+
+  lifecycle_rules = [
+
+    {
+
+      id = "archive"
+
+      status = "Enabled"
+
+      transitions = [
+
+        {
+
+          days = 30
+
+          storage_class = "STANDARD_IA"
+
+        }
+
+      ]
+
+    }
+
+  ]
+
+}
+```
+
+---
+
+### Static Website Bucket
+
+```hcl
+module "website_bucket" {
+
+  source = "../modules/s3"
+
+  bucket_name = "cloudhustler-website"
+
+  enable_website = true
+
+  index_document = "index.html"
+
+  error_document = "404.html"
+
+}
+```
+
+---
+
+## 🔒 Security Features
+
+This module follows AWS security best practices by supporting:
+
+- Bucket Owner Enforced object ownership
+- Public Access Block
+- Default encryption
+- KMS encryption
+- Versioning
+- Object Lock
+- Least-privilege bucket policies
+- Cross-Region replication
+- Lifecycle policies
+- Secure logging
+- CloudWatch metrics
+
+---
+
+## 🏛 AWS Services Used
+
+- Amazon S3
+- AWS KMS
+- AWS IAM
+- Amazon CloudWatch
+- AWS Lambda
+- Amazon SNS
+- Amazon SQS
+
+---
+
+## 🚀 Best Practices
+
+Recommended for production:
+
+- Enable Versioning
+- Enable SSE-KMS encryption
+- Enable Public Access Block
+- Use Bucket Owner Enforced ownership
+- Configure Lifecycle Rules
+- Enable Access Logging
+- Use least-privilege IAM policies
+- Enable CloudWatch Metrics
+- Use Replication for disaster recovery
+- Enable Inventory reporting for compliance
+
+---
+
+## 🔄 Module Dependencies
+
+This module can integrate with:
+
+- KMS Module
+- IAM Module
+- CloudTrail Module
+- AWS Config Module
+- GuardDuty Module
+- Security Hub Module
+- Route 53 Module
+- CloudFront Module
+- Lambda Module
+
+---
+
+## 📖 Terraform Compatibility
+
+| Component | Version |
+|-----------|---------|
+| Terraform | >= 1.5 |
+| AWS Provider | >= 5.x |
+
+---
+
+## 📜 License
+
+This module is part of the **CloudHustler Commerce Platform** and follows the project's infrastructure standards for reusable, production-grade Terraform modules.

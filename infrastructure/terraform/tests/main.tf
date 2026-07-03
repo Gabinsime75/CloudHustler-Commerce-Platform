@@ -173,7 +173,7 @@
 
 module "governance" {
 
-  source = "../../terraform/governance"
+  source                    = "../../terraform/governance"
   organization_id           = var.organization_id
   cloudtrail_s3_bucket_name = var.cloudtrail_s3_bucket_name
   cloudtrail_kms_key_arn    = var.cloudtrail_kms_key_arn
