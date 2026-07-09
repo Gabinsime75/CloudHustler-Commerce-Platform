@@ -4,7 +4,7 @@
 
 resource "aws_s3_bucket_object_lock_configuration" "this" {
 
-  count = var.enable_object_lock ? 1 : 0
+  count = var.object_lock_enabled ? 1 : 0
 
   bucket = aws_s3_bucket.this.id
 

@@ -5,16 +5,19 @@
 variable "project_name" {
   description = "Project name."
   type        = string
+  default     = "cloudhustler-commerce-platform"
 }
 
 variable "environment" {
   description = "Deployment environment."
   type        = string
+  default     = "dev"
 }
 
 variable "aws_region" {
   description = "AWS region."
   type        = string
+  default     = "us-east-2"
 }
 
 variable "tags" {
@@ -83,17 +86,17 @@ variable "config_role_name" {
 
 }
 
-#############################################
-# KMS
-#############################################
+# #############################################
+# # KMS
+# #############################################
 
-variable "kms_key_arn" {
+# variable "kms_key_arn" {
 
-  description = "KMS Key ARN."
+#   description = "KMS Key ARN."
 
-  type = string
+#   type = string
 
-}
+# }
 
 #############################################
 # GuardDuty

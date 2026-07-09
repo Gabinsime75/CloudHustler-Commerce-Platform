@@ -301,7 +301,7 @@ variable "request_payer" {
 # Object Lock
 ###############################################################
 
-variable "enable_object_lock" {
+variable "object_lock_enabled" {
   description = "Enable Object Lock."
   type        = bool
   default     = false

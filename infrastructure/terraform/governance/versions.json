@@ -1,0 +1,38 @@
+[
+    {
+        "Key": "AWSLogs/396913735153/Config/ConfigWritabilityCheckFile",
+        "VersionId": "iB_mwc_lW78xdE96MkGfq8Q0iub3u2uT"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/ConfigWritabilityCheckFile",
+        "VersionId": "QDT5yWlsJjfcM5YpKU9SWilkk76B_IHM"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/ConfigWritabilityCheckFile",
+        "VersionId": "z3WlImfDtQRw69RJBzizcWWXheFEQ7Ma"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/2/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::Config::ConfigurationRecorder_20260702T073434Z_20260702T073434Z_1.json.gz",
+        "VersionId": "R5cJDAemnsAt1v.geIAqMlPCOgLVUCDv"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/3/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::CloudFormation::Stack_20260703T103417Z_20260703T103418Z_1.json.gz",
+        "VersionId": "RWmntMVRiQEBcTCULAkfdBovcW5EpvET"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/3/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::CodeDeploy::DeploymentConfig_20260703T103416Z_20260703T103416Z_1.json.gz",
+        "VersionId": "tdyRGXOwneSXqPAC7RuA6cV5BCfQ7lvH"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/3/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::Config::ConfigurationRecorder_20260703T093447Z_20260703T101339Z_1.json.gz",
+        "VersionId": "cSHL3VNsaG41HYfd8miaBDzg89Axyilq"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/3/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::Config::ResourceCompliance_20260703T115838Z_20260703T120029Z_1.json.gz",
+        "VersionId": "qFZTm7.ILHXoWmE2ZNpKdvg.yURMLK.Z"
+    },
+    {
+        "Key": "AWSLogs/396913735153/Config/us-east-1/2026/7/3/ConfigHistory/396913735153_Config_us-east-1_ConfigHistory_AWS::SecretsManager::Secret_20260703T103825Z_20260703T103825Z_1.json.gz",
+        "VersionId": "6yvoAY_hv3JllFA2u5seFdsqrDgkZtW8"
+    }
+]

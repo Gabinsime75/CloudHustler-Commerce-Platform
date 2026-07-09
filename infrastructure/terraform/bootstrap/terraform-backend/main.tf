@@ -15,14 +15,14 @@ module "kms" {
 module "s3" {
   source             = "../../modules/S3"
   bucket_name        = "${var.project_name}-tfstate-${var.environment}"
-  versioning_enabled = true
+  # versioning_enabled = true
   kms_key_arn        = module.kms.key_arn
 
   tags = var.tags
 
 }
 
-
+# 
 # Bootstrap DynamoDB Lock Table
 module "dynamodb" {
   source                         = "../../modules/DynamoDB"

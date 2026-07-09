@@ -1,6 +1,7 @@
 variable "name" {
   description = "Name of the CloudWatch Log Group."
   type        = string
+  default     = "commerce-platform-log-group"
 }
 
 variable "retention_in_days" {
@@ -10,9 +11,8 @@ variable "retention_in_days" {
 }
 
 variable "kms_key_id" {
-  description = "KMS Key ARN used to encrypt the log group."
+  description = "ARN of the KMS key used to encrypt the CloudWatch log group."
   type        = string
-  default     = "e6a5285166c7b5b128c053beefa62dbe8d817b2afa4dd1f4dc27136921d9ea20"
 }
 
 variable "log_group_class" {

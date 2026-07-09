@@ -10,6 +10,8 @@ module "config_aggregator" {
 
   organization_aggregation = true
 
+  organization_role_arn = module.config_aggregator_role.role_arn
+
   tags = local.common_tags
 
 }

@@ -4,7 +4,7 @@
 
 module "config_service_role" {
 
-  source = "../modules/service-roles/config_service_role"
+  source = "../modules/service-roles/config-service-role"
 
   role_name = var.config_service_role_name
 
@@ -18,7 +18,7 @@ module "config_service_role" {
 
 module "cloudtrail_service_role" {
 
-  source = "../modules/service-roles/cloudtrail_service_role"
+  source = "../modules/service-roles/cloudtrail-service-role"
 
   role_name = var.cloudtrail_service_role_name
 
@@ -32,7 +32,7 @@ module "cloudtrail_service_role" {
 
 module "guardduty_service_role" {
 
-  source = "../modules/service-roles/guardduty_service_role"
+  source = "../modules/service-roles/guardduty-service-role"
 
   role_name = var.guardduty_service_role_name
 
@@ -46,7 +46,7 @@ module "guardduty_service_role" {
 
 module "securityhub_service_role" {
 
-  source = "../modules/service-roles/securityhub_service_role"
+  source = "../modules/service-roles/securityhub-service-role"
 
   role_name = var.securityhub_service_role_name
 

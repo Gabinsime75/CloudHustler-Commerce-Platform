@@ -33,10 +33,10 @@ locals {
     var.logging_configuration != null
   )
 
-  use_bucket_policy = (
-    var.attach_bucket_policy &&
-    var.bucket_policy != null
-  )
+  # use_bucket_policy = (
+  #   var.attach_bucket_policy &&
+  #   var.bucket_policy != null
+  # )
 
   use_acl = (
     var.enable_acl &&

@@ -1,6 +1,7 @@
 variable "analyzer_name" {
   description = "Name of the IAM Access Analyzer."
   type        = string
+  default     = "commerce-platform-access-analyzer"
 }
 
 variable "type" {

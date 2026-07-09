@@ -8,6 +8,8 @@ module "cloudtrail_bucket" {
 
   bucket_name = local.cloudtrail_bucket_name
 
+  bucket_policy = data.aws_iam_policy_document.cloudtrail_bucket.json
+
   force_destroy = false
 
   enable_encryption = true
@@ -35,6 +37,8 @@ module "config_bucket" {
   source = "../modules/s3"
 
   bucket_name = local.config_bucket_name
+
+  bucket_policy = data.aws_iam_policy_document.config_bucket.json
 
   force_destroy = false
 
