@@ -122,45 +122,86 @@ variable "access_logs" {
 # Target Groups
 ###############################################################
 
-variable "target_groups" {
+# variable "target_groups" {
 
-  description = "Application Load Balancer target groups."
+#   description = "Application Load Balancer target groups."
+
+#   type = map(object({
+
+#     port        = number
+#     protocol    = string
+#     target_type = string
+
+#     deregistration_delay          = optional(number, 300)
+#     slow_start                    = optional(number, 0)
+#     load_balancing_algorithm_type = optional(string, "round_robin")
+#     stickiness = optional(object({
+#       enabled = optional(bool, false)
+#       type = optional(string, "lb_cookie")
+#       cookie_duration = optional(number, 86400)
+#       cookie_name = optional(string)
+#     }))
+#     health_check = optional(object({
+
+#       enabled             = optional(bool, true)
+#       protocol            = optional(string, "HTTP")
+#       path                = optional(string, "/")
+#       port                = optional(string, "traffic-port")
+#       matcher             = optional(string, "200")
+#       interval            = optional(number, 30)
+#       timeout             = optional(number, 5)
+#       healthy_threshold   = optional(number, 5)
+#       unhealthy_threshold = optional(number, 2)
+
+#     }))
+
+#   }))
+
+#   default = {}
+
+# }
+
+
+variable "target_groups" {
+  description = "Map of Application Load Balancer target group configurations."
 
   type = map(object({
+    name          = optional(string)
+    port          = number
+    protocol      = string
+    target_type   = string
 
-    port        = number
-    protocol    = string
-    target_type = string
+    protocol_version = optional(string)
+    ip_address_type  = optional(string)
 
-    deregistration_delay          = optional(number, 300)
-    slow_start                    = optional(number, 0)
-    load_balancing_algorithm_type = optional(string, "round_robin")
-    stickiness = optional(object({
-      enabled = optional(bool, false)
-      type = optional(string, "lb_cookie")
-      cookie_duration = optional(number, 86400)
-      cookie_name = optional(string)
-    }))
+    deregistration_delay = optional(number)
+    slow_start           = optional(number)
+
+    load_balancing_algorithm_type = optional(string)
+
     health_check = optional(object({
-
-      enabled             = optional(bool, true)
-      protocol            = optional(string, "HTTP")
-      path                = optional(string, "/")
-      port                = optional(string, "traffic-port")
-      matcher             = optional(string, "200")
-      interval            = optional(number, 30)
-      timeout             = optional(number, 5)
-      healthy_threshold   = optional(number, 5)
-      unhealthy_threshold = optional(number, 2)
-
+      enabled             = optional(bool)
+      protocol            = optional(string)
+      port                = optional(string)
+      path                = optional(string)
+      matcher             = optional(string)
+      interval            = optional(number)
+      timeout             = optional(number)
+      healthy_threshold   = optional(number)
+      unhealthy_threshold = optional(number)
     }))
 
+    stickiness = optional(object({
+      enabled         = optional(bool)
+      type            = optional(string)
+      cookie_duration = optional(number)
+      cookie_name     = optional(string)
+    }))
+
+    lambda_multi_value_headers_enabled = optional(bool)
+    tags                               = optional(map(string), {})
   }))
-
-  default = {}
-
 }
-
 ###############################################################
 # Listeners
 ###############################################################
