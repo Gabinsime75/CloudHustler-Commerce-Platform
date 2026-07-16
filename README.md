@@ -130,6 +130,7 @@ Transform reactive operations into intelligent, automated incident management.
 ### CloudHustler Commerce Platform – Enterprise AWS Infrastructure & Platform Architecture
 ![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/01_cloudhustler-commerce-Platform-aws_arch-v03.jpg)
 
+
 ### CloudHustler Commerce Platform – Cloud-Native Microservices Application Architecture
 ![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/CloudHustler%20Commerce%20Platform%20%E2%80%93%20Microservices%20Platform%20Architecture.jpg)
 
