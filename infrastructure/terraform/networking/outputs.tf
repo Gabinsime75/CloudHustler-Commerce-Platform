@@ -134,6 +134,21 @@ output "app_target_group_name" {
   value       = module.alb.target_group_names["app"]
 }
 
+output "istio_ingress_target_group_arn" {
+  description = "ARN of the target group used by the Istio ingress gateway."
+  value       = module.alb.target_group_arns["istio_ingress"]
+}
+
+output "istio_ingress_target_group_name" {
+  description = "Name of the target group used by the Istio ingress gateway."
+  value       = module.alb.target_group_names["istio_ingress"]
+}
+
+output "istio_ingress_target_group_id" {
+  description = "ID of the target group used by the Istio ingress gateway."
+  value       = module.alb.target_group_ids["istio_ingress"]
+}
+
 ###############################################################
 # Route53 Outputs
 ###############################################################

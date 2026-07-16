@@ -148,34 +148,97 @@ locals {
     } : {}
   )
 
-  #############################################################
+  ###############################################################
   # ALB Target Groups
-  #############################################################
+  ###############################################################
 
   alb_target_groups = {
+    ###########################################################
+    # Existing Application Target Group
+    ###########################################################
 
     app = {
+      name = "cloudhusller-commerce-platform-d"
+
       port        = var.app_target_group_port
       protocol    = var.app_target_group_protocol
       target_type = var.app_target_type
 
-      deregistration_delay          = var.app_deregistration_delay
-      slow_start                    = var.app_slow_start
+      protocol_version = null
+      ip_address_type  = var.alb_ip_address_type
+
+      deregistration_delay = var.app_deregistration_delay
+      slow_start           = var.app_slow_start
+
       load_balancing_algorithm_type = var.app_load_balancing_algorithm_type
 
       health_check = {
-        enabled             = true
+        enabled             = var.app_health_check_enabled
         protocol            = var.app_health_check_protocol
-        path                = var.app_health_check_path
         port                = var.app_health_check_port
+        path                = var.app_health_check_path
         matcher             = var.app_health_check_matcher
         interval            = var.app_health_check_interval
         timeout             = var.app_health_check_timeout
         healthy_threshold   = var.app_healthy_threshold
         unhealthy_threshold = var.app_unhealthy_threshold
       }
+
+      stickiness = {
+        enabled         = var.enable_alb_stickiness
+        type            = "lb_cookie"
+        cookie_duration = var.alb_stickiness_duration
+        cookie_name     = null
+      }
+
+      tags = {
+        Workload = "Application"
+      }
     }
 
+    ###########################################################
+    # Istio Ingress Gateway Target Group
+    ###########################################################
+
+    istio_ingress = {
+      name = "cloudhusller-dev-istio-ingress"
+
+      port        = var.istio_ingress_target_group_port
+      protocol    = var.istio_ingress_target_group_protocol
+      target_type = var.istio_ingress_target_type
+
+      protocol_version = var.istio_ingress_protocol_version
+      ip_address_type  = var.istio_ingress_ip_address_type
+
+      deregistration_delay = var.istio_ingress_deregistration_delay
+      slow_start           = var.istio_ingress_slow_start
+
+      load_balancing_algorithm_type = var.istio_ingress_load_balancing_algorithm_type
+
+      health_check = {
+        enabled             = var.istio_ingress_health_check_enabled
+        protocol            = var.istio_ingress_health_check_protocol
+        port                = var.istio_ingress_health_check_port
+        path                = var.istio_ingress_health_check_path
+        matcher             = var.istio_ingress_health_check_matcher
+        interval            = var.istio_ingress_health_check_interval
+        timeout             = var.istio_ingress_health_check_timeout
+        healthy_threshold   = var.istio_ingress_healthy_threshold
+        unhealthy_threshold = var.istio_ingress_unhealthy_threshold
+      }
+
+      stickiness = {
+        enabled         = var.enable_istio_ingress_stickiness
+        type            = "lb_cookie"
+        cookie_duration = var.istio_ingress_stickiness_duration
+        cookie_name     = null
+      }
+
+      tags = {
+        Workload                   = "IstioIngressGateway"
+        ManagedByKubernetesTargets = "true"
+      }
+    }
   }
   #############################################################
   # Route53 Records

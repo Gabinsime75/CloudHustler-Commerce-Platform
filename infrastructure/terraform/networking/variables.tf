@@ -282,8 +282,12 @@ variable "alb_access_logs_prefix" {
 
 ###############################################################
 # ALB Target Group
-###############################################################
-
+##############################################################
+variable "app_health_check_enabled" {
+  description = "Whether health checks are enabled for the application target group."
+  type        = bool
+  default     = true
+}
 variable "app_target_group_port" {
   description = "Application target group port."
   type        = number
@@ -402,6 +406,164 @@ variable "enable_alb_stickiness" {
 
 variable "alb_stickiness_duration" {
   description = "ALB stickiness duration in seconds."
+  type        = number
+  default     = 3600
+}
+
+###############################################################
+# Istio Ingress Gateway Target Group
+###############################################################
+
+variable "istio_ingress_target_group_port" {
+  description = "Port used by the Istio ingress gateway target group."
+  type        = number
+  default     = 80
+}
+
+variable "istio_ingress_target_group_protocol" {
+  description = "Protocol used by the Istio ingress gateway target group."
+  type        = string
+  default     = "HTTP"
+
+  validation {
+    condition = contains(
+      ["HTTP", "HTTPS"],
+      var.istio_ingress_target_group_protocol
+    )
+
+    error_message = "Istio target group protocol must be HTTP or HTTPS."
+  }
+}
+
+variable "istio_ingress_target_type" {
+  description = "Target type for the Istio ingress gateway target group."
+  type        = string
+  default     = "ip"
+
+  validation {
+    condition     = var.istio_ingress_target_type == "ip"
+    error_message = "The Istio ingress gateway target group must use the ip target type."
+  }
+}
+
+variable "istio_ingress_protocol_version" {
+  description = "Protocol version used by the Istio ingress gateway target group."
+  type        = string
+  default     = "HTTP1"
+
+  validation {
+    condition = contains(
+      ["HTTP1", "HTTP2", "GRPC"],
+      var.istio_ingress_protocol_version
+    )
+
+    error_message = "Protocol version must be HTTP1, HTTP2, or GRPC."
+  }
+}
+
+variable "istio_ingress_ip_address_type" {
+  description = "IP address type used by the Istio ingress target group."
+  type        = string
+  default     = "ipv4"
+
+  validation {
+    condition = contains(
+      ["ipv4", "ipv6"],
+      var.istio_ingress_ip_address_type
+    )
+
+    error_message = "IP address type must be ipv4 or ipv6."
+  }
+}
+
+variable "istio_ingress_deregistration_delay" {
+  description = "Time in seconds before deregistered Istio gateway targets stop receiving traffic."
+  type        = number
+  default     = 30
+}
+
+variable "istio_ingress_slow_start" {
+  description = "Slow-start duration for newly registered Istio gateway targets."
+  type        = number
+  default     = 0
+}
+
+variable "istio_ingress_load_balancing_algorithm_type" {
+  description = "Load-balancing algorithm used by the Istio ingress target group."
+  type        = string
+  default     = "round_robin"
+}
+
+###############################################################
+# Istio Ingress Gateway Health Check
+###############################################################
+
+variable "istio_ingress_health_check_enabled" {
+  description = "Whether health checks are enabled for the Istio ingress gateway."
+  type        = bool
+  default     = true
+}
+
+variable "istio_ingress_health_check_protocol" {
+  description = "Protocol used for Istio ingress gateway health checks."
+  type        = string
+  default     = "HTTP"
+}
+
+variable "istio_ingress_health_check_path" {
+  description = "Health-check path used by the Istio ingress gateway."
+  type        = string
+  default     = "/healthz/ready"
+}
+
+variable "istio_ingress_health_check_port" {
+  description = "Health-check port used by the Istio ingress gateway."
+  type        = string
+  default     = "15021"
+}
+
+variable "istio_ingress_health_check_matcher" {
+  description = "Successful HTTP response codes for the Istio ingress gateway health check."
+  type        = string
+  default     = "200"
+}
+
+variable "istio_ingress_health_check_interval" {
+  description = "Interval in seconds between Istio ingress health checks."
+  type        = number
+  default     = 15
+}
+
+variable "istio_ingress_health_check_timeout" {
+  description = "Istio ingress health-check timeout in seconds."
+  type        = number
+  default     = 5
+}
+
+variable "istio_ingress_healthy_threshold" {
+  description = "Successful health checks required before an Istio gateway target becomes healthy."
+  type        = number
+  default     = 2
+}
+
+variable "istio_ingress_unhealthy_threshold" {
+  description = "Failed health checks required before an Istio gateway target becomes unhealthy."
+  type        = number
+  default     = 2
+}
+
+###############################################################
+# Istio Target Group Stickiness
+###############################################################
+
+variable "enable_istio_ingress_stickiness" {
+  description = "Whether load-balancer cookie stickiness is enabled for the Istio ingress target group."
+  type        = bool
+  default     = false
+}
+
+variable "istio_ingress_stickiness_duration" {
+  description = "Istio ingress target group cookie duration in seconds."
   type        = number
   default     = 3600
 }
