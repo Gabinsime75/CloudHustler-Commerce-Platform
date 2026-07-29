@@ -110,6 +110,12 @@ variable "bucket_key_enabled" {
   default     = true
 }
 
+variable "enable_server_side_encryption" {
+  description = "Enable server-side encryption configuration."
+  type        = bool
+  default     = true
+}
+
 ###############################################################
 # Versioning
 ###############################################################

@@ -1,7 +1,7 @@
 # Bootstrap KMS Key
 module "kms" {
   source                  = "../../modules/KMS"
-  alias                   = "alias/${var.project_name}-terraform-state"
+  alias                   = "${var.project_name}-terraform-state"
   description             = "KMS key for Terraform remote state."
   enable_key_rotation     = true
   deletion_window_in_days = 30
@@ -13,10 +13,10 @@ module "kms" {
 
 # Bootstrap S3 Bucket
 module "s3" {
-  source             = "../../modules/S3"
-  bucket_name        = "${var.project_name}-tfstate-${var.environment}"
+  source      = "../../modules/S3"
+  bucket_name = "${var.project_name}-tfstate-${var.environment}"
   # versioning_enabled = true
-  kms_key_arn        = module.kms.key_arn
+  kms_key_arn = module.kms.key_arn
 
   tags = var.tags
 
