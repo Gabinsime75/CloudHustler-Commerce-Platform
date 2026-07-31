@@ -1139,21 +1139,27 @@ variable "karpenter_architectures" {
 }
 
 # -----------------------------------------------------------------------------
-# EC2 Capacity Configuration
+# Karpenter Capacity Types
 # -----------------------------------------------------------------------------
 
 variable "karpenter_capacity_types" {
   description = "EC2 capacity types allowed for Karpenter-managed nodes."
   type        = list(string)
-  default     = ["spot", "on-demand"]
+
+  default = [
+    "on-demand"
+  ]
 
   validation {
-    condition = alltrue([
-      for capacity_type in var.karpenter_capacity_types :
-      contains(["spot", "on-demand", "reserved"], capacity_type)
-    ])
+    condition = (
+      length(var.karpenter_capacity_types) > 0 &&
+      alltrue([
+        for capacity_type in var.karpenter_capacity_types :
+        contains(["on-demand"], capacity_type)
+      ])
+    )
 
-    error_message = "Karpenter capacity types must be spot, on-demand, or reserved."
+    error_message = "Karpenter capacity types must contain only \"on-demand\"."
   }
 }
 
@@ -2133,4 +2139,73 @@ variable "istio_ingress_scrape_timeout" {
   type        = string
   default     = "10s"
   nullable    = false
+}
+
+# =============================================================================
+# Fluent Bit
+# =============================================================================
+
+variable "fluent_bit_release_name" {
+  type    = string
+  default = "fluent-bit"
+}
+
+variable "fluent_bit_namespace" {
+  type    = string
+  default = "logging"
+}
+
+variable "fluent_bit_chart_version" {
+  type    = string
+  default = "0.57.9"
+}
+
+variable "fluent_bit_create_namespace" {
+  type    = bool
+  default = true
+}
+
+variable "fluent_bit_log_level" {
+  type    = string
+  default = "info"
+}
+
+variable "fluent_bit_service_monitor_enabled" {
+  type    = bool
+  default = true
+}
+
+variable "fluent_bit_scrape_interval" {
+  type    = string
+  default = "30s"
+}
+
+variable "fluent_bit_cpu_request" {
+  type    = string
+  default = "50m"
+}
+
+variable "fluent_bit_memory_request" {
+  type    = string
+  default = "64Mi"
+}
+
+variable "fluent_bit_cpu_limit" {
+  type    = string
+  default = "200m"
+}
+
+variable "fluent_bit_memory_limit" {
+  type    = string
+  default = "256Mi"
+}
+
+variable "fluent_bit_timeout" {
+  type    = number
+  default = 900
+}
+
+variable "fluent_bit_atomic" {
+  type    = bool
+  default = false
 }
