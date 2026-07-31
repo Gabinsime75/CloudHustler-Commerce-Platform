@@ -1,0 +1,211 @@
+# 04 – Access Analyzer Deployment Failure
+
+**Project:** CloudHustler Commerce Platform  
+**Phase:** Governance  
+**Category:** Terraform / AWS IAM Access Analyzer  
+**Severity:** Medium  
+**Status:** Resolved  
+**Date:** July 2026
+
+---
+
+# Incident Summary
+
+During the Governance phase of the CloudHustler Commerce Platform deployment, Terraform failed while provisioning **AWS IAM Access Analyzer**.
+
+Although the rest of the governance stack was deploying successfully, Terraform stopped when attempting to create the analyzer, preventing the entire deployment from completing.
+
+The issue was isolated to insufficient IAM permissions assigned to the AWS principal executing Terraform.
+
+---
+
+# Impact
+
+- Governance deployment could not complete successfully.
+- AWS IAM Access Analyzer was not created.
+- Continuous detection of public and cross-account resource exposure was unavailable.
+- Terraform apply exited with an error, blocking subsequent deployment steps.
+
+---
+
+# Symptoms
+
+Terraform failed during deployment with an error similar to:
+
+```text
+Error: creating IAM Access Analyzer:
+
+AccessDeniedException:
+You do not have sufficient permissions to perform this operation.
+```
+
+Terraform identified the failure while creating the Access Analyzer resource.
+
+---
+
+# Investigation
+
+The troubleshooting process focused on determining whether the problem originated from Terraform, the AWS provider, or IAM permissions.
+
+The following validation steps were performed:
+
+### 1. Verified Terraform Configuration
+
+The Access Analyzer resource configuration was reviewed.
+
+Items validated:
+
+- Resource syntax
+- Analyzer name
+- Resource type
+- Region
+- Provider configuration
+
+No configuration errors were found.
+
+---
+
+### 2. Verified AWS Provider
+
+The AWS provider was successfully authenticated.
+
+Other AWS resources deployed normally, including:
+
+- CloudTrail
+- AWS Config
+- GuardDuty
+- Security Hub
+
+This confirmed that Terraform itself was functioning correctly.
+
+---
+
+### 3. Reviewed IAM Permissions
+
+Attention shifted to the IAM identity executing Terraform.
+
+The deployment role was compared against AWS IAM Access Analyzer documentation.
+
+The investigation revealed that the role lacked the required Access Analyzer permissions necessary to create and manage analyzers.
+
+---
+
+# Root Cause
+
+The IAM principal executing Terraform did not have sufficient permissions to create an AWS IAM Access Analyzer.
+
+The missing permissions prevented Terraform from invoking the AWS Access Analyzer API, resulting in an `AccessDeniedException`.
+
+This was an IAM authorization issue rather than a Terraform configuration problem.
+
+---
+
+# Resolution
+
+The deployment role was updated to include the required IAM Access Analyzer permissions.
+
+After the permissions were granted:
+
+- Terraform initialization completed successfully.
+- Terraform apply successfully created the analyzer.
+- Governance deployment completed without additional errors.
+
+---
+
+# Validation
+
+Deployment success was verified using the following commands.
+
+## Verify the Analyzer
+
+```bash
+aws accessanalyzer list-analyzers
+```
+
+Expected:
+
+```text
+ACTIVE
+```
+
+---
+
+## Verify Terraform State
+
+```bash
+terraform state list
+```
+
+Expected resource:
+
+```text
+module.access_analyzer.aws_accessanalyzer_analyzer.this
+```
+
+---
+
+## Verify Governance Deployment
+
+```bash
+terraform plan
+```
+
+Expected:
+
+```text
+No changes.
+Infrastructure is up-to-date.
+```
+
+---
+
+# Lessons Learned
+
+- Successful AWS authentication does not guarantee sufficient service permissions.
+- IAM authorization failures should be investigated before modifying Terraform code.
+- Validate deployment roles against AWS service documentation whenever introducing new AWS services.
+- Isolate IAM permission issues before assuming Terraform configuration problems.
+
+---
+
+# Prevention
+
+To prevent similar issues in future deployments:
+
+- Maintain least-privilege IAM policies while ensuring required service permissions are included.
+- Validate deployment roles before introducing new AWS services.
+- Review AWS service-specific IAM requirements during module development.
+- Include IAM permission validation as part of governance deployment testing.
+
+---
+
+# Key Takeaways
+
+| Area | Result |
+|-------|--------|
+| Root Cause | Missing IAM Access Analyzer permissions |
+| Failure Type | AWS Authorization (IAM) |
+| Terraform Configuration | Correct |
+| AWS Provider | Healthy |
+| Resolution | Grant required IAM Access Analyzer permissions |
+| Final Status | Successfully deployed |
+
+---
+
+# Interview Story (STAR Format)
+
+## Situation
+
+While deploying the Governance layer of the CloudHustler Commerce Platform, Terraform failed during the creation of AWS IAM Access Analyzer, preventing the governance stack from completing successfully.
+
+## Task
+
+My responsibility was to determine whether the failure originated from Terraform, the AWS provider, or AWS IAM permissions, and restore the deployment without introducing unnecessary infrastructure changes.
+
+## Action
+
+I first validated the Terraform configuration and confirmed the resource definition was correct. I then verified the AWS provider was functioning by confirming that other governance services, including CloudTrail, AWS Config, GuardDuty, and Security Hub, had deployed successfully. With Terraform and the provider ruled out, I reviewed the IAM permissions assigned to the deployment role and compared them against the permissions required by AWS IAM Access Analyzer. This identified missing permissions needed to create the analyzer. After updating the deployment role with the required permissions, I reran the deployment.
+
+## Result
+
+Terraform successfully created the Access Analyzer, the governance deployment completed successfully, and the platform gained continuous visibility into unintended public and cross-account resource access. The incident also reinforced the importance of validating IAM permissions early when integrating new AWS services into Infrastructure as Code deployments.
