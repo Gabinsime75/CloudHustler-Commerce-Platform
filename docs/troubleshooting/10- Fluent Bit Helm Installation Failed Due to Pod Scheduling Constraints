@@ -1,0 +1,367 @@
+# Troubleshooting Guide 06
+# Fluent Bit Helm Installation Failed Due to Pod Scheduling Constraints
+
+**Project:** CloudHustler Commerce Platform  
+**Phase:** Phase 6 – Platform Services  
+**Component:** Fluent Bit  
+**Severity:** Medium  
+**Status:** Resolved  
+**Date:** July 31, 2026
+
+---
+
+# Executive Summary
+
+During the Platform Services implementation, Terraform repeatedly failed while deploying the Fluent Bit Helm chart. Although Terraform reported an installation failure, investigation revealed that Fluent Bit itself was healthy. The real issue was that two Kubernetes worker nodes had reached their maximum supported pod capacity, preventing two Fluent Bit DaemonSet pods from being scheduled.
+
+After freeing pod capacity, removing the failed Helm release, and redeploying through Terraform, Fluent Bit installed successfully.
+
+---
+
+# Environment
+
+- AWS EKS
+- Kubernetes 1.33
+- Helm
+- Terraform
+- Karpenter
+- Managed Node Group
+- Fluent Bit Helm Chart v0.57.9
+- Fluent Bit v5.0.9
+
+---
+
+# Initial Symptoms
+
+Terraform consistently failed with:
+
+```text
+Error: installation failed
+```
+
+Helm reported:
+
+```text
+STATUS: failed
+```
+
+Terraform was unable to complete the Platform Services deployment.
+
+---
+
+# Initial Investigation
+
+The first assumption was that Fluent Bit itself was failing.
+
+The following resources were inspected:
+
+```bash
+kubectl get daemonset -n logging
+
+kubectl get pods -n logging -o wide
+
+kubectl describe pod <pod-name> -n logging
+
+kubectl logs <pod> -n logging
+```
+
+---
+
+# Initial Findings
+
+DaemonSet status:
+
+```text
+DESIRED   CURRENT   READY
+
+3         3         1
+```
+
+Pod status:
+
+```text
+1 Running
+
+2 Pending
+```
+
+The running pod showed:
+
+- Healthy
+- Ready
+- No restarts
+- Successful readiness probe
+- Successful liveness probe
+
+The Fluent Bit logs showed only memory buffer throttling:
+
+```text
+tail.0 paused (mem buf overlimit)
+```
+
+This is normal runtime behavior and was **not** the installation failure.
+
+---
+
+# Root Cause Investigation
+
+The Pending pods were inspected.
+
+Events showed:
+
+```text
+FailedScheduling
+
+0/3 nodes are available
+
+1 Too many pods
+
+2 node(s) didn't satisfy plugin(s) [NodeAffinity]
+```
+
+This immediately indicated the scheduler—not Fluent Bit—was preventing deployment.
+
+---
+
+# Capacity Investigation
+
+Node capacity was inspected.
+
+```bash
+kubectl get nodes \
+-o custom-columns=NAME:.metadata.name,\
+INSTANCE:.metadata.labels.node\\.kubernetes\\.io/instance-type,\
+POD-CAPACITY:.status.capacity.pods
+```
+
+Output:
+
+| Node | Instance | Pod Capacity |
+|-------|----------|-------------:|
+| t3.medium | 17 | 17 |
+| c6a.large | 29 | 29 |
+| t3.medium | 17 | 17 |
+
+Current pod count:
+
+```bash
+kubectl get pods -A \
+--field-selector spec.nodeName=<node>
+```
+
+Result:
+
+| Node | Pods Running |
+|-------|-------------:|
+| t3.medium | 17 |
+| t3.medium | 17 |
+| c6a.large | 8 |
+
+Both managed nodes had reached their maximum pod limit.
+
+---
+
+# Why NodeAffinity Appeared
+
+Fluent Bit is deployed as a DaemonSet.
+
+A DaemonSet schedules exactly one pod per node.
+
+Each pending pod was intended for one specific worker node.
+
+The scheduler therefore reported:
+
+```text
+NodeAffinity
+```
+
+because those DaemonSet pods could not simply move to another node.
+
+The real blocker remained:
+
+```text
+Too many pods
+```
+
+---
+
+# Resolution
+
+Rather than modifying Fluent Bit itself, pod capacity was temporarily freed.
+
+Two non-critical Deployment-managed pods were restarted:
+
+- kube-state-metrics
+- ExternalDNS
+
+This created one available pod slot on each managed node.
+
+---
+
+# Secondary Issue
+
+Because Terraform had been configured with:
+
+```hcl
+atomic = false
+
+cleanup_on_fail = false
+```
+
+Helm intentionally left the failed release in place.
+
+Terraform then failed with:
+
+```text
+cannot re-use a name that is still in use
+```
+
+The failed Helm release was removed.
+
+```bash
+helm uninstall fluent-bit -n logging
+```
+
+Verification:
+
+```bash
+helm list -n logging
+```
+
+returned no releases.
+
+---
+
+# Successful Redeployment
+
+Terraform was executed again.
+
+```bash
+terraform apply --auto-approve
+```
+
+Helm completed successfully.
+
+Verification:
+
+```bash
+helm list -n logging
+```
+
+Result:
+
+```text
+STATUS
+
+deployed
+```
+
+DaemonSet validation:
+
+```bash
+kubectl get daemonset,pods -n logging
+```
+
+Result:
+
+```text
+DESIRED 3
+
+READY 3
+
+AVAILABLE 3
+```
+
+All Fluent Bit pods entered the Running state.
+
+---
+
+# Root Cause
+
+The Fluent Bit Helm chart was functioning correctly.
+
+Deployment failed because:
+
+- both managed worker nodes had reached their maximum Kubernetes pod capacity;
+- the DaemonSet could not schedule one Fluent Bit pod onto each node;
+- Helm waited for all DaemonSet pods to become Ready before marking the release successful.
+
+The application itself was never broken.
+
+---
+
+# Lessons Learned
+
+- Helm installation failures are not always application failures.
+- Always inspect Pending pod events before troubleshooting container images or Helm values.
+- DaemonSets require one schedulable pod per eligible node.
+- Node pod capacity should always be validated when DaemonSet pods remain Pending.
+- Using `atomic = false` greatly improves troubleshooting because Kubernetes resources remain available for inspection.
+
+---
+
+# Validation Commands
+
+Check Helm release:
+
+```bash
+helm list -n logging
+```
+
+Check DaemonSet:
+
+```bash
+kubectl get daemonset -n logging
+```
+
+Check Fluent Bit pods:
+
+```bash
+kubectl get pods -n logging -o wide
+```
+
+Describe Pending pod:
+
+```bash
+kubectl describe pod <pod-name> -n logging
+```
+
+Check scheduler events:
+
+```bash
+kubectl describe pod <pod-name> -n logging
+```
+
+Count pods per node:
+
+```bash
+for node in $(kubectl get nodes -o name | cut -d/ -f2); do
+    kubectl get pods -A \
+      --field-selector spec.nodeName=$node \
+      --no-headers | wc -l
+done
+```
+
+---
+
+# Final Validation
+
+✔ Helm Release: Deployed
+
+✔ DaemonSet: 3/3 Ready
+
+✔ Pods: 3 Running
+
+✔ Terraform Apply: Successful
+
+✔ Platform Services deployment resumed successfully.
+
+---
+
+# Preventive Recommendations
+
+- Monitor node pod density as part of platform health checks.
+- Size managed node groups with sufficient pod capacity for platform DaemonSets.
+- Consider enabling VPC CNI Prefix Delegation to increase pod density.
+- Keep `atomic = false` during platform bring-up to simplify troubleshooting.
+- Add DaemonSet scheduling verification to the Platform Services validation checklist.
