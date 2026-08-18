@@ -96,8 +96,14 @@ resource "helm_release" "this" {
 
         outputs = <<-EOT
           [OUTPUT]
-              Name   stdout
-              Match  kube.*
+              Name        loki
+              Match       kube.*
+              Host        loki-gateway.logging.svc.cluster.local
+              Port        80
+              URI         /loki/api/v1/push
+              Labels      job=fluent-bit,namespace=$kubernetes['namespace_name'],pod=$kubernetes['pod_name'],container=$kubernetes['container_name'],node=$kubernetes['host']
+              Line_Format json
+              Retry_Limit False
         EOT
       }
     })

@@ -129,7 +129,7 @@ data "aws_iam_policy_document" "external_dns" {
 ################################################################################
 
 resource "aws_iam_role" "this" {
-  name = local.iam_role_name
+  name        = local.iam_role_name
   description = "IAM role used by ExternalDNS through EKS Pod Identity."
 
   assume_role_policy = data.aws_iam_policy_document.pod_identity_assume_role.json
@@ -150,7 +150,7 @@ resource "aws_iam_role" "this" {
 ################################################################################
 
 resource "aws_iam_policy" "this" {
-  name = local.iam_policy_name
+  name        = local.iam_policy_name
   description = "Allows ExternalDNS to manage records in the authorized Route 53 hosted zone."
 
   policy = data.aws_iam_policy_document.external_dns.json

@@ -2209,3 +2209,1067 @@ variable "fluent_bit_atomic" {
   type    = bool
   default = false
 }
+
+# -----------------------------------------------------------------------------
+# Loki Namespace Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_namespace" {
+  description = "Kubernetes namespace where Loki will be deployed."
+  type        = string
+  default     = "logging"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Helm Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_release_name" {
+  description = "Name of the Loki Helm release."
+  type        = string
+  default     = "loki"
+}
+
+variable "loki_chart_version" {
+  description = "Pinned version of the Grafana Loki Helm chart."
+  type        = string
+  default     = "7.2.0"
+}
+
+variable "loki_timeout" {
+  description = "Maximum time in seconds allowed for the Loki Helm deployment."
+  type        = number
+  default     = 1200
+}
+
+variable "loki_atomic" {
+  description = "Whether Helm should automatically roll back the Loki release when deployment fails."
+  type        = bool
+  default     = false
+}
+
+variable "loki_cleanup_on_fail" {
+  description = "Whether Helm should remove newly created Loki resources after a failed deployment."
+  type        = bool
+  default     = false
+}
+
+# -----------------------------------------------------------------------------
+# Loki Storage Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_storage_class_name" {
+  description = "Kubernetes StorageClass used for Loki persistent storage."
+  type        = string
+  default     = "gp3"
+}
+
+variable "loki_storage_size" {
+  description = "Persistent volume size allocated to Loki."
+  type        = string
+  default     = "20Gi"
+}
+
+variable "loki_retention_period" {
+  description = "Length of time Loki retains log data."
+  type        = string
+  default     = "168h"
+}
+
+variable "loki_schema_start_date" {
+  description = "Start date used by the Loki TSDB schema configuration."
+  type        = string
+  default     = "2024-01-01"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Ingestion and Query Limits
+# -----------------------------------------------------------------------------
+
+variable "loki_ingestion_rate_mb" {
+  description = "Maximum sustained Loki log ingestion rate in megabytes per second."
+  type        = number
+  default     = 4
+}
+
+variable "loki_ingestion_burst_size_mb" {
+  description = "Maximum Loki log ingestion burst size in megabytes."
+  type        = number
+  default     = 8
+}
+
+variable "loki_max_query_parallelism" {
+  description = "Maximum number of Loki query operations that can run in parallel."
+  type        = number
+  default     = 16
+}
+
+variable "loki_max_query_series" {
+  description = "Maximum number of series returned by a Loki metric query."
+  type        = number
+  default     = 500
+}
+
+variable "loki_reject_old_samples_max_age" {
+  description = "Maximum accepted age for incoming Loki log entries."
+  type        = string
+  default     = "168h"
+}
+
+variable "loki_per_stream_rate_limit" {
+  description = "Maximum sustained ingestion rate allowed for an individual Loki log stream."
+  type        = string
+  default     = "5MB"
+}
+
+variable "loki_per_stream_rate_limit_burst" {
+  description = "Maximum ingestion burst allowed for an individual Loki log stream."
+  type        = string
+  default     = "15MB"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Retention and Compaction
+# -----------------------------------------------------------------------------
+
+variable "loki_compaction_interval" {
+  description = "Interval at which the Loki compactor runs."
+  type        = string
+  default     = "10m"
+}
+
+variable "loki_retention_delete_delay" {
+  description = "Delay between identifying expired Loki data and deleting it."
+  type        = string
+  default     = "2h"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Replica Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_replica_count" {
+  description = "Number of Loki SingleBinary replicas."
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.loki_replica_count >= 1
+    error_message = "loki_replica_count must be at least 1."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Loki Resource Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_cpu_request" {
+  description = "CPU requested by the Loki SingleBinary container."
+  type        = string
+  default     = "200m"
+}
+
+variable "loki_memory_request" {
+  description = "Memory requested by the Loki SingleBinary container."
+  type        = string
+  default     = "512Mi"
+}
+
+variable "loki_cpu_limit" {
+  description = "Maximum CPU available to the Loki SingleBinary container."
+  type        = string
+  default     = "1000m"
+}
+
+variable "loki_memory_limit" {
+  description = "Maximum memory available to the Loki SingleBinary container."
+  type        = string
+  default     = "2Gi"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Gateway Resource Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_gateway_cpu_request" {
+  description = "CPU requested by the Loki gateway container."
+  type        = string
+  default     = "50m"
+}
+
+variable "loki_gateway_memory_request" {
+  description = "Memory requested by the Loki gateway container."
+  type        = string
+  default     = "64Mi"
+}
+
+variable "loki_gateway_cpu_limit" {
+  description = "Maximum CPU available to the Loki gateway container."
+  type        = string
+  default     = "250m"
+}
+
+variable "loki_gateway_memory_limit" {
+  description = "Maximum memory available to the Loki gateway container."
+  type        = string
+  default     = "256Mi"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Canary Resource Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_canary_cpu_request" {
+  description = "CPU requested by each Loki Canary container."
+  type        = string
+  default     = "25m"
+}
+
+variable "loki_canary_memory_request" {
+  description = "Memory requested by each Loki Canary container."
+  type        = string
+  default     = "64Mi"
+}
+
+variable "loki_canary_cpu_limit" {
+  description = "Maximum CPU available to each Loki Canary container."
+  type        = string
+  default     = "200m"
+}
+
+variable "loki_canary_memory_limit" {
+  description = "Maximum memory available to each Loki Canary container."
+  type        = string
+  default     = "128Mi"
+}
+
+# -----------------------------------------------------------------------------
+# Loki Kubernetes Scheduling Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_node_selector" {
+  description = "Node labels used to control Loki pod placement."
+  type        = map(string)
+  default     = {}
+}
+
+variable "loki_tolerations" {
+  description = "Kubernetes tolerations assigned to Loki pods."
+  type        = list(any)
+  default     = []
+}
+
+variable "loki_affinity" {
+  description = "Kubernetes affinity configuration assigned to Loki pods."
+  type        = any
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# Loki Monitoring Configuration
+# -----------------------------------------------------------------------------
+
+variable "loki_service_monitor_enabled" {
+  description = "Whether Loki should create a Prometheus ServiceMonitor."
+  type        = bool
+  default     = true
+}
+
+variable "loki_service_monitor_interval" {
+  description = "Prometheus scrape interval used by the Loki ServiceMonitor."
+  type        = string
+  default     = "30s"
+}
+
+variable "loki_canary_enabled" {
+  description = "Whether the Loki Canary workload should be deployed."
+  type        = bool
+  default     = true
+}
+
+# =============================================================================
+# Kiali Configuration
+#
+# These variables configure the Kiali deployment used to visualize and manage
+# the Istio service mesh for the CloudHustler Commerce Platform.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Namespace Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_namespace" {
+  description = "Kubernetes namespace where Kiali will be deployed."
+  type        = string
+  default     = "istio-system"
+}
+
+# -----------------------------------------------------------------------------
+# Helm Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_release_name" {
+  description = "Name of the Kiali Helm release."
+  type        = string
+  default     = "kiali"
+}
+
+variable "kiali_chart_version" {
+  description = "Pinned version of the Kiali Server Helm chart."
+  type        = string
+}
+
+variable "kiali_timeout" {
+  description = "Maximum time in seconds allowed for the Kiali Helm deployment."
+  type        = number
+  default     = 900
+}
+
+variable "kiali_atomic" {
+  description = "Whether Helm should automatically roll back the Kiali release when deployment fails."
+  type        = bool
+  default     = false
+}
+
+variable "kiali_cleanup_on_fail" {
+  description = "Whether Helm should remove newly created Kiali resources after a failed deployment."
+  type        = bool
+  default     = false
+}
+
+# -----------------------------------------------------------------------------
+# Authentication Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_auth_strategy" {
+  description = "Authentication strategy used by Kiali."
+  type        = string
+  default     = "anonymous"
+
+  validation {
+    condition = contains(
+      [
+        "anonymous",
+        "openid"
+      ],
+      var.kiali_auth_strategy
+    )
+
+    error_message = "kiali_auth_strategy must be either anonymous or openid."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Deployment Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_instance_name" {
+  description = "Logical Kiali instance name."
+  type        = string
+  default     = "kiali"
+}
+
+variable "kiali_replica_count" {
+  description = "Number of Kiali server replicas."
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.kiali_replica_count >= 1
+    error_message = "kiali_replica_count must be at least 1."
+  }
+}
+
+variable "kiali_accessible_namespaces" {
+  description = "Namespaces Kiali is allowed to monitor."
+  type        = list(string)
+
+  default = [
+    "**"
+  ]
+}
+
+# -----------------------------------------------------------------------------
+# Resource Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_cpu_request" {
+  description = "CPU requested by the Kiali container."
+  type        = string
+  default     = "100m"
+}
+
+variable "kiali_memory_request" {
+  description = "Memory requested by the Kiali container."
+  type        = string
+  default     = "128Mi"
+}
+
+variable "kiali_cpu_limit" {
+  description = "Maximum CPU available to the Kiali container."
+  type        = string
+  default     = "500m"
+}
+
+variable "kiali_memory_limit" {
+  description = "Maximum memory available to the Kiali container."
+  type        = string
+  default     = "512Mi"
+}
+
+# -----------------------------------------------------------------------------
+# Kubernetes Scheduling Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_node_selector" {
+  description = "Node labels used to control Kiali pod placement."
+  type        = map(string)
+  default     = {}
+}
+
+variable "kiali_tolerations" {
+  description = "Kubernetes tolerations assigned to Kiali pods."
+  type        = list(any)
+  default     = []
+}
+
+variable "kiali_affinity" {
+  description = "Kubernetes affinity configuration assigned to Kiali pods."
+  type        = any
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# Istio Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_istio_namespace" {
+  description = "Namespace containing the Istio control plane."
+  type        = string
+  default     = "istio-system"
+}
+
+# -----------------------------------------------------------------------------
+# Prometheus Integration
+# -----------------------------------------------------------------------------
+
+variable "kiali_prometheus_url" {
+  description = "Internal Prometheus URL used by Kiali."
+  type        = string
+
+  default = "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+}
+
+# -----------------------------------------------------------------------------
+# Grafana Integration
+# -----------------------------------------------------------------------------
+
+variable "kiali_grafana_enabled" {
+  description = "Whether Kiali should integrate with Grafana."
+  type        = bool
+  default     = true
+}
+
+variable "kiali_grafana_in_cluster_url" {
+  description = "Internal Grafana URL used by Kiali."
+  type        = string
+
+  default = "http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local"
+}
+
+variable "kiali_grafana_external_url" {
+  description = "Browser-accessible Grafana URL used in Kiali links."
+  type        = string
+  default     = ""
+}
+
+# -----------------------------------------------------------------------------
+# Distributed Tracing Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_tracing_enabled" {
+  description = "Whether Kiali tracing integration is enabled."
+  type        = bool
+  default     = false
+}
+
+# -----------------------------------------------------------------------------
+# Server Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_server_port" {
+  description = "Port exposed by the Kiali server."
+  type        = number
+  default     = 20001
+}
+
+variable "kiali_web_root" {
+  description = "Base path used by the Kiali web application."
+  type        = string
+  default     = "/"
+}
+
+variable "kiali_metrics_enabled" {
+  description = "Whether Kiali exposes Prometheus metrics."
+  type        = bool
+  default     = true
+}
+
+variable "kiali_metrics_port" {
+  description = "Port used for Kiali Prometheus metrics."
+  type        = number
+  default     = 9090
+}
+
+# -----------------------------------------------------------------------------
+# Kubernetes Service Configuration
+# -----------------------------------------------------------------------------
+
+variable "kiali_service_type" {
+  description = "Kubernetes Service type used for Kiali."
+  type        = string
+  default     = "ClusterIP"
+
+  validation {
+    condition = contains(
+      [
+        "ClusterIP",
+        "NodePort",
+        "LoadBalancer"
+      ],
+      var.kiali_service_type
+    )
+
+    error_message = "kiali_service_type must be ClusterIP, NodePort, or LoadBalancer."
+  }
+}
+
+variable "kiali_service_annotations" {
+  description = "Additional annotations applied to the Kiali Service."
+  type        = map(string)
+  default     = {}
+}
+
+# =============================================================================
+# OpenTelemetry Collector Configuration
+#
+# These variables configure the centralized OpenTelemetry Collector gateway
+# used to receive, enrich, process, and export application metrics and traces.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Namespace Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_namespace" {
+  description = "Kubernetes namespace where the OpenTelemetry Collector is deployed."
+  type        = string
+  default     = "observability"
+}
+
+variable "otel_create_namespace" {
+  description = "Whether Terraform should create the OpenTelemetry namespace."
+  type        = bool
+  default     = true
+}
+
+variable "otel_namespace_labels" {
+  description = "Additional labels applied to the OpenTelemetry namespace."
+  type        = map(string)
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# Helm Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_release_name" {
+  description = "Name of the OpenTelemetry Collector Helm release."
+  type        = string
+  default     = "opentelemetry-collector"
+}
+
+variable "otel_chart_version" {
+  description = "Pinned OpenTelemetry Collector Helm chart version."
+  type        = string
+}
+
+variable "otel_timeout" {
+  description = "Maximum time in seconds allowed for the OpenTelemetry Helm deployment."
+  type        = number
+  default     = 900
+}
+
+variable "otel_atomic" {
+  description = "Whether Helm should automatically roll back the release when deployment fails."
+  type        = bool
+  default     = false
+}
+
+variable "otel_cleanup_on_fail" {
+  description = "Whether Helm should remove newly created resources after a failed deployment."
+  type        = bool
+  default     = false
+}
+
+# -----------------------------------------------------------------------------
+# Collector Image Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_image_repository" {
+  description = "OpenTelemetry Collector container image repository."
+  type        = string
+  default     = "otel/opentelemetry-collector-contrib"
+}
+
+variable "otel_image_tag" {
+  description = "Pinned OpenTelemetry Collector container image tag."
+  type        = string
+}
+
+variable "otel_image_pull_policy" {
+  description = "Kubernetes image pull policy for the Collector image."
+  type        = string
+  default     = "IfNotPresent"
+
+  validation {
+    condition = contains(
+      [
+        "Always",
+        "IfNotPresent",
+        "Never"
+      ],
+      var.otel_image_pull_policy
+    )
+
+    error_message = "otel_image_pull_policy must be Always, IfNotPresent, or Never."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Deployment Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_replica_count" {
+  description = "Number of OpenTelemetry Collector replicas."
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.otel_replica_count >= 1
+    error_message = "otel_replica_count must be at least 1."
+  }
+}
+
+variable "otel_service_account_name" {
+  description = "Kubernetes service account used by the Collector."
+  type        = string
+  default     = "opentelemetry-collector"
+}
+
+variable "otel_service_account_annotations" {
+  description = "Additional annotations applied to the Collector service account."
+  type        = map(string)
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# OTLP Receiver Ports
+# -----------------------------------------------------------------------------
+
+variable "otel_otlp_grpc_port" {
+  description = "Port used to receive OTLP telemetry over gRPC."
+  type        = number
+  default     = 4317
+}
+
+variable "otel_otlp_http_port" {
+  description = "Port used to receive OTLP telemetry over HTTP."
+  type        = number
+  default     = 4318
+}
+
+# -----------------------------------------------------------------------------
+# Collector Operational Ports
+# -----------------------------------------------------------------------------
+
+variable "otel_prometheus_exporter_port" {
+  description = "Port exposing OTLP application metrics for Prometheus."
+  type        = number
+  default     = 8889
+}
+
+variable "otel_internal_metrics_port" {
+  description = "Port exposing Collector internal operational metrics."
+  type        = number
+  default     = 8888
+}
+
+variable "otel_health_check_port" {
+  description = "Port used by the Collector health-check extension."
+  type        = number
+  default     = 13133
+}
+
+variable "otel_zpages_enabled" {
+  description = "Whether the Collector zPages diagnostic extension is enabled."
+  type        = bool
+  default     = true
+}
+
+variable "otel_zpages_port" {
+  description = "Port used by the Collector zPages extension."
+  type        = number
+  default     = 55679
+}
+
+# -----------------------------------------------------------------------------
+# Memory Limiter Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_memory_limiter_check_interval" {
+  description = "Interval at which the Collector memory limiter checks usage."
+  type        = string
+  default     = "5s"
+}
+
+variable "otel_memory_limiter_limit_percentage" {
+  description = "Maximum percentage of available memory the Collector may use."
+  type        = number
+  default     = 80
+
+  validation {
+    condition = (
+      var.otel_memory_limiter_limit_percentage > 0 &&
+      var.otel_memory_limiter_limit_percentage <= 100
+    )
+
+    error_message = "otel_memory_limiter_limit_percentage must be between 1 and 100."
+  }
+}
+
+variable "otel_memory_limiter_spike_limit_percentage" {
+  description = "Percentage of memory reserved for temporary usage spikes."
+  type        = number
+  default     = 25
+
+  validation {
+    condition = (
+      var.otel_memory_limiter_spike_limit_percentage >= 0 &&
+      var.otel_memory_limiter_spike_limit_percentage <= 100
+    )
+
+    error_message = "otel_memory_limiter_spike_limit_percentage must be between 0 and 100."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Batch Processor Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_batch_timeout" {
+  description = "Maximum time telemetry remains in a batch before export."
+  type        = string
+  default     = "5s"
+}
+
+variable "otel_batch_send_size" {
+  description = "Preferred number of telemetry items sent per batch."
+  type        = number
+  default     = 512
+}
+
+variable "otel_batch_max_size" {
+  description = "Maximum number of telemetry items allowed in one batch."
+  type        = number
+  default     = 1024
+}
+
+# -----------------------------------------------------------------------------
+# Prometheus Integration
+# -----------------------------------------------------------------------------
+
+variable "otel_prometheus_namespace" {
+  description = "Metric prefix used by the Collector Prometheus exporter."
+  type        = string
+  default     = "cloudhusller"
+}
+
+variable "otel_prometheus_scrape_enabled" {
+  description = "Whether Prometheus pod-scrape annotations are enabled."
+  type        = bool
+  default     = true
+}
+
+variable "otel_service_monitor_enabled" {
+  description = "Whether the Collector creates a Prometheus ServiceMonitor."
+  type        = bool
+  default     = true
+}
+
+variable "otel_service_monitor_interval" {
+  description = "Prometheus scrape interval for Collector operational metrics."
+  type        = string
+  default     = "30s"
+}
+
+# -----------------------------------------------------------------------------
+# AWS X-Ray Integration
+# -----------------------------------------------------------------------------
+
+variable "otel_aws_xray_enabled" {
+  description = "Whether distributed traces are exported to AWS X-Ray."
+  type        = bool
+  default     = false
+}
+
+variable "otel_aws_xray_indexed_attributes" {
+  description = "Trace attributes indexed as AWS X-Ray annotations."
+  type        = list(string)
+
+  default = [
+    "service.name",
+    "service.namespace",
+    "deployment.environment.name",
+    "k8s.namespace.name",
+    "k8s.pod.name"
+  ]
+}
+
+variable "otel_debug_exporter_verbosity" {
+  description = "Debug trace exporter verbosity when AWS X-Ray is disabled."
+  type        = string
+  default     = "basic"
+
+  validation {
+    condition = contains(
+      [
+        "basic",
+        "normal",
+        "detailed"
+      ],
+      var.otel_debug_exporter_verbosity
+    )
+
+    error_message = "otel_debug_exporter_verbosity must be basic, normal, or detailed."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# IAM Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_iam_role_name" {
+  description = "IAM role used by the Collector for AWS X-Ray export."
+  type        = string
+}
+
+variable "otel_iam_policy_name" {
+  description = "IAM policy used by the Collector for AWS X-Ray export."
+  type        = string
+}
+
+variable "otel_permissions_boundary_arn" {
+  description = "Optional IAM permissions boundary applied to the Collector role."
+  type        = string
+  default     = null
+}
+
+variable "otel_iam_tags" {
+  description = "Additional tags applied to Collector IAM resources."
+  type        = map(string)
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# Collector Logging
+# -----------------------------------------------------------------------------
+
+variable "otel_collector_log_level" {
+  description = "OpenTelemetry Collector internal log level."
+  type        = string
+  default     = "info"
+
+  validation {
+    condition = contains(
+      [
+        "debug",
+        "info",
+        "warn",
+        "error"
+      ],
+      var.otel_collector_log_level
+    )
+
+    error_message = "otel_collector_log_level must be debug, info, warn, or error."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Kubernetes Service Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_service_type" {
+  description = "Kubernetes Service type used by the Collector."
+  type        = string
+  default     = "ClusterIP"
+
+  validation {
+    condition = contains(
+      [
+        "ClusterIP",
+        "NodePort",
+        "LoadBalancer"
+      ],
+      var.otel_service_type
+    )
+
+    error_message = "otel_service_type must be ClusterIP, NodePort, or LoadBalancer."
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Resource Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_cpu_request" {
+  description = "CPU requested by each Collector pod."
+  type        = string
+  default     = "100m"
+}
+
+variable "otel_memory_request" {
+  description = "Memory requested by each Collector pod."
+  type        = string
+  default     = "256Mi"
+}
+
+variable "otel_cpu_limit" {
+  description = "Maximum CPU available to each Collector pod."
+  type        = string
+  default     = "500m"
+}
+
+variable "otel_memory_limit" {
+  description = "Maximum memory available to each Collector pod."
+  type        = string
+  default     = "512Mi"
+}
+
+# -----------------------------------------------------------------------------
+# Horizontal Pod Autoscaling
+# -----------------------------------------------------------------------------
+
+variable "otel_autoscaling_enabled" {
+  description = "Whether Horizontal Pod Autoscaling is enabled."
+  type        = bool
+  default     = false
+}
+
+variable "otel_autoscaling_min_replicas" {
+  description = "Minimum Collector replicas when autoscaling is enabled."
+  type        = number
+  default     = 1
+}
+
+variable "otel_autoscaling_max_replicas" {
+  description = "Maximum Collector replicas when autoscaling is enabled."
+  type        = number
+  default     = 3
+}
+
+variable "otel_autoscaling_cpu_target" {
+  description = "Target average CPU utilization percentage for autoscaling."
+  type        = number
+  default     = 70
+}
+
+# -----------------------------------------------------------------------------
+# Kubernetes Scheduling Configuration
+# -----------------------------------------------------------------------------
+
+variable "otel_node_selector" {
+  description = "Node labels used to control Collector pod placement."
+  type        = map(string)
+  default     = {}
+}
+
+variable "otel_tolerations" {
+  description = "Kubernetes tolerations assigned to Collector pods."
+  type        = list(any)
+  default     = []
+}
+
+variable "otel_affinity" {
+  description = "Kubernetes affinity configuration assigned to Collector pods."
+  type        = any
+  default     = {}
+}
+
+# =============================================================================
+# Grafana Dashboards
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Namespace Configuration
+# -----------------------------------------------------------------------------
+
+variable "grafana_dashboards_namespace" {
+  description = "Namespace containing Grafana dashboard ConfigMaps."
+  type        = string
+  default     = "monitoring"
+}
+
+# -----------------------------------------------------------------------------
+# ConfigMap Naming
+# -----------------------------------------------------------------------------
+
+variable "grafana_dashboard_configmap_prefix" {
+  description = "Prefix applied to every Grafana dashboard ConfigMap."
+  type        = string
+  default     = "cloudhusller-dashboard"
+}
+
+# -----------------------------------------------------------------------------
+# Dashboard Folder
+# -----------------------------------------------------------------------------
+
+variable "grafana_dashboard_folder" {
+  description = "Grafana folder containing the CloudHustler dashboards."
+  type        = string
+  default     = "CloudHustler Platform"
+}
+
+# -----------------------------------------------------------------------------
+# Dashboard Sidecar Discovery
+# -----------------------------------------------------------------------------
+
+variable "grafana_dashboard_sidecar_label" {
+  description = "ConfigMap label watched by the Grafana dashboard sidecar."
+  type        = string
+  default     = "grafana_dashboard"
+}
+
+variable "grafana_dashboard_sidecar_label_value" {
+  description = "Value assigned to the Grafana dashboard discovery label."
+  type        = string
+  default     = "1"
+}
+
+# -----------------------------------------------------------------------------
+# Dashboard Metadata
+# -----------------------------------------------------------------------------
+
+variable "grafana_dashboard_labels" {
+  description = "Additional labels applied to all Grafana dashboard ConfigMaps."
+  type        = map(string)
+
+  default = {}
+}
+
+variable "grafana_dashboard_annotations" {
+  description = "Additional annotations applied to all Grafana dashboard ConfigMaps."
+  type        = map(string)
+
+  default = {}
+}

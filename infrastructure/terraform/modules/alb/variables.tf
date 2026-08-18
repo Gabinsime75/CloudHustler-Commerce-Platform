@@ -166,10 +166,10 @@ variable "target_groups" {
   description = "Map of Application Load Balancer target group configurations."
 
   type = map(object({
-    name          = optional(string)
-    port          = number
-    protocol      = string
-    target_type   = string
+    name        = optional(string)
+    port        = number
+    protocol    = string
+    target_type = string
 
     protocol_version = optional(string)
     ip_address_type  = optional(string)

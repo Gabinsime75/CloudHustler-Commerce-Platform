@@ -58,8 +58,8 @@ resource "helm_release" "karpenter" {
       }
 
       podDisruptionBudget = {
-        name            = "karpenter"
-        maxUnavailable  = 1
+        name           = "karpenter"
+        maxUnavailable = 1
       }
     })
   ]

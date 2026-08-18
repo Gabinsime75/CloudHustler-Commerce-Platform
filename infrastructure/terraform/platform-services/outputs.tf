@@ -496,3 +496,424 @@ output "prometheus_default_rules_enabled" {
   value       = module.prometheus.default_rules_enabled
 }
 
+# -----------------------------------------------------------------------------
+# Loki Helm Release Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_release_name" {
+  description = "Name of the deployed Loki Helm release."
+  value       = module.loki.release_name
+}
+
+output "loki_release_status" {
+  description = "Current status of the Loki Helm release."
+  value       = module.loki.release_status
+}
+
+output "loki_chart_name" {
+  description = "Name of the deployed Loki Helm chart."
+  value       = module.loki.chart_name
+}
+
+output "loki_chart_version" {
+  description = "Version of the deployed Loki Helm chart."
+  value       = module.loki.chart_version
+}
+
+# -----------------------------------------------------------------------------
+# Loki Namespace Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_namespace" {
+  description = "Kubernetes namespace where Loki is deployed."
+  value       = module.loki.namespace
+}
+
+output "loki_namespace_created" {
+  description = "Indicates whether the Loki module created the namespace."
+  value       = module.loki.namespace_created
+}
+
+# -----------------------------------------------------------------------------
+# Loki Service Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_gateway_service_name" {
+  description = "Internal Kubernetes Service name for the Loki gateway."
+  value       = module.loki.gateway_service_name
+}
+
+output "loki_gateway_service_fqdn" {
+  description = "Fully qualified Kubernetes DNS name for the Loki gateway."
+  value       = module.loki.gateway_service_fqdn
+}
+
+output "loki_gateway_url" {
+  description = "Internal Loki gateway URL used by Grafana."
+  value       = module.loki.gateway_url
+}
+
+# -----------------------------------------------------------------------------
+# Loki API Endpoint Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_push_endpoint" {
+  description = "Internal Loki ingestion endpoint used by Fluent Bit."
+  value       = module.loki.push_endpoint
+}
+
+output "loki_query_endpoint" {
+  description = "Internal Loki instant query endpoint."
+  value       = module.loki.query_endpoint
+}
+
+output "loki_query_range_endpoint" {
+  description = "Internal Loki range query endpoint."
+  value       = module.loki.query_range_endpoint
+}
+
+output "loki_ready_endpoint" {
+  description = "Internal Loki readiness endpoint."
+  value       = module.loki.ready_endpoint
+}
+
+# -----------------------------------------------------------------------------
+# Loki Storage Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_storage_class_name" {
+  description = "StorageClass used by Loki persistent storage."
+  value       = module.loki.storage_class_name
+}
+
+output "loki_storage_size" {
+  description = "Persistent storage size allocated to Loki."
+  value       = module.loki.storage_size
+}
+
+output "loki_retention_period" {
+  description = "Configured Loki log-retention period."
+  value       = module.loki.retention_period
+}
+
+# -----------------------------------------------------------------------------
+# Loki Monitoring Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_service_monitor_enabled" {
+  description = "Indicates whether Loki Prometheus monitoring is enabled."
+  value       = module.loki.service_monitor_enabled
+}
+
+output "loki_canary_enabled" {
+  description = "Indicates whether the Loki Canary workload is enabled."
+  value       = module.loki.loki_canary_enabled
+}
+
+# -----------------------------------------------------------------------------
+# Loki Deployment Outputs
+# -----------------------------------------------------------------------------
+
+output "loki_deployment_mode" {
+  description = "Configured Loki deployment mode."
+  value       = module.loki.deployment_mode
+}
+
+output "loki_replica_count" {
+  description = "Number of configured Loki SingleBinary replicas."
+  value       = module.loki.replica_count
+}
+
+# =============================================================================
+# Kiali Outputs
+#
+# These outputs expose the deployed Kiali release details, Kubernetes service,
+# internal URL, authentication configuration, and external integrations for
+# validation and platform-level consumption.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Helm Release Outputs
+# -----------------------------------------------------------------------------
+
+output "kiali_release_name" {
+  description = "Name of the deployed Kiali Helm release."
+  value       = module.kiali.release_name
+}
+
+output "kiali_release_status" {
+  description = "Current status of the Kiali Helm release."
+  value       = module.kiali.release_status
+}
+
+output "kiali_chart_name" {
+  description = "Name of the deployed Kiali Helm chart."
+  value       = module.kiali.chart_name
+}
+
+output "kiali_chart_version" {
+  description = "Version of the deployed Kiali Helm chart."
+  value       = module.kiali.chart_version
+}
+
+# -----------------------------------------------------------------------------
+# Namespace Outputs
+# -----------------------------------------------------------------------------
+
+output "kiali_namespace" {
+  description = "Kubernetes namespace where Kiali is deployed."
+  value       = module.kiali.namespace
+}
+
+output "kiali_namespace_created" {
+  description = "Indicates whether the Kiali module created the namespace."
+  value       = module.kiali.namespace_created
+}
+
+# -----------------------------------------------------------------------------
+# Service Outputs
+# -----------------------------------------------------------------------------
+
+output "kiali_service_name" {
+  description = "Kubernetes Service name used by Kiali."
+  value       = module.kiali.service_name
+}
+
+output "kiali_service_type" {
+  description = "Kubernetes Service type used by Kiali."
+  value       = module.kiali.service_type
+}
+
+output "kiali_internal_url" {
+  description = "Internal Kubernetes URL used to access Kiali."
+  value       = module.kiali.internal_url
+}
+
+# -----------------------------------------------------------------------------
+# Integration Outputs
+# -----------------------------------------------------------------------------
+
+output "kiali_prometheus_url" {
+  description = "Prometheus endpoint configured in Kiali."
+  value       = module.kiali.prometheus_url
+}
+
+output "kiali_grafana_url" {
+  description = "Grafana endpoint configured in Kiali."
+  value       = module.kiali.grafana_url
+}
+
+output "kiali_tracing_enabled" {
+  description = "Indicates whether Kiali tracing integration is enabled."
+  value       = module.kiali.tracing_enabled
+}
+
+# -----------------------------------------------------------------------------
+# Deployment Outputs
+# -----------------------------------------------------------------------------
+
+output "kiali_replica_count" {
+  description = "Number of configured Kiali replicas."
+  value       = module.kiali.replica_count
+}
+
+output "kiali_auth_strategy" {
+  description = "Authentication strategy configured for Kiali."
+  value       = module.kiali.auth_strategy
+}
+
+output "kiali_metrics_enabled" {
+  description = "Indicates whether Kiali Prometheus metrics are enabled."
+  value       = module.kiali.metrics_enabled
+}
+
+output "kiali_accessible_namespaces" {
+  description = "Namespaces Kiali is configured to monitor."
+  value       = module.kiali.accessible_namespaces
+}
+
+# =============================================================================
+# OpenTelemetry Collector Outputs
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Helm Release
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_release_name" {
+  description = "OpenTelemetry Collector Helm release name."
+  value       = module.opentelemetry_collector.release_name
+}
+
+output "opentelemetry_release_status" {
+  description = "OpenTelemetry Collector Helm release status."
+  value       = module.opentelemetry_collector.release_status
+}
+
+output "opentelemetry_chart_version" {
+  description = "OpenTelemetry Collector Helm chart version."
+  value       = module.opentelemetry_collector.chart_version
+}
+
+# -----------------------------------------------------------------------------
+# Namespace
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_namespace" {
+  description = "Namespace hosting the OpenTelemetry Collector."
+  value       = module.opentelemetry_collector.namespace
+}
+
+# -----------------------------------------------------------------------------
+# OTLP Endpoints
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_otlp_grpc_endpoint" {
+  description = "Internal OTLP gRPC endpoint."
+  value       = module.opentelemetry_collector.otlp_grpc_endpoint
+}
+
+output "opentelemetry_otlp_http_endpoint" {
+  description = "Internal OTLP HTTP endpoint."
+  value       = module.opentelemetry_collector.otlp_http_endpoint
+}
+
+output "opentelemetry_otlp_http_traces_endpoint" {
+  description = "OTLP HTTP traces endpoint."
+  value       = module.opentelemetry_collector.otlp_http_traces_endpoint
+}
+
+output "opentelemetry_otlp_http_metrics_endpoint" {
+  description = "OTLP HTTP metrics endpoint."
+  value       = module.opentelemetry_collector.otlp_http_metrics_endpoint
+}
+
+# -----------------------------------------------------------------------------
+# Prometheus Integration
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_prometheus_endpoint" {
+  description = "Prometheus metrics endpoint exposed by the Collector."
+  value       = module.opentelemetry_collector.prometheus_exporter_endpoint
+}
+
+output "opentelemetry_internal_metrics_endpoint" {
+  description = "Collector internal metrics endpoint."
+  value       = module.opentelemetry_collector.internal_metrics_endpoint
+}
+
+output "opentelemetry_service_monitor_enabled" {
+  description = "Whether the Collector ServiceMonitor is enabled."
+  value       = module.opentelemetry_collector.service_monitor_enabled
+}
+
+# -----------------------------------------------------------------------------
+# Health Endpoints
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_health_endpoint" {
+  description = "Collector health endpoint."
+  value       = module.opentelemetry_collector.health_endpoint
+}
+
+output "opentelemetry_zpages_endpoint" {
+  description = "Collector zPages endpoint."
+  value       = module.opentelemetry_collector.zpages_endpoint
+}
+
+# -----------------------------------------------------------------------------
+# Deployment
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_deployment_mode" {
+  description = "OpenTelemetry Collector deployment mode."
+  value       = module.opentelemetry_collector.deployment_mode
+}
+
+output "opentelemetry_replicas" {
+  description = "Configured Collector replica count."
+  value       = module.opentelemetry_collector.replica_count
+}
+
+output "opentelemetry_service_account" {
+  description = "Collector Kubernetes service account."
+  value       = module.opentelemetry_collector.service_account_name
+}
+
+# -----------------------------------------------------------------------------
+# AWS X-Ray
+# -----------------------------------------------------------------------------
+
+output "opentelemetry_trace_exporter" {
+  description = "Configured trace exporter."
+  value       = module.opentelemetry_collector.trace_exporter
+}
+
+output "opentelemetry_xray_enabled" {
+  description = "Whether AWS X-Ray integration is enabled."
+  value       = module.opentelemetry_collector.aws_xray_enabled
+}
+
+output "opentelemetry_iam_role" {
+  description = "IAM role used by the Collector."
+  value       = module.opentelemetry_collector.iam_role_name
+}
+
+output "opentelemetry_iam_role_arn" {
+  description = "IAM role ARN used by the Collector."
+  value       = module.opentelemetry_collector.iam_role_arn
+}
+
+output "opentelemetry_pod_identity_association" {
+  description = "EKS Pod Identity association ID."
+  value       = module.opentelemetry_collector.pod_identity_association_id
+}
+
+# =============================================================================
+# Grafana Dashboard Outputs
+# =============================================================================
+
+output "grafana_dashboard_files" {
+  description = "Grafana dashboard JSON files managed by Terraform."
+  value       = module.grafana_dashboards.dashboard_files
+}
+
+output "grafana_dashboard_names" {
+  description = "Logical names of the managed Grafana dashboards."
+  value       = module.grafana_dashboards.dashboard_names
+}
+
+output "grafana_dashboard_count" {
+  description = "Number of Grafana dashboards managed by Terraform."
+  value       = module.grafana_dashboards.dashboard_count
+}
+
+output "grafana_dashboard_configmap_names" {
+  description = "ConfigMaps containing the Grafana dashboard definitions."
+  value       = module.grafana_dashboards.configmap_names
+}
+
+output "grafana_dashboard_configmap_ids" {
+  description = "Kubernetes IDs of the Grafana dashboard ConfigMaps."
+  value       = module.grafana_dashboards.configmap_ids
+}
+
+output "grafana_dashboard_namespace" {
+  description = "Namespace containing the Grafana dashboard ConfigMaps."
+  value       = module.grafana_dashboards.namespace
+}
+
+output "grafana_dashboard_folder" {
+  description = "Grafana folder used for CloudHustler dashboards."
+  value       = module.grafana_dashboards.dashboard_folder
+}
+
+output "grafana_dashboard_sidecar_label" {
+  description = "ConfigMap label watched by the Grafana dashboard sidecar."
+  value       = module.grafana_dashboards.sidecar_label
+}
+
+output "grafana_dashboard_sidecar_label_value" {
+  description = "Value used by the Grafana dashboard sidecar label."
+  value       = module.grafana_dashboards.sidecar_label_value
+}

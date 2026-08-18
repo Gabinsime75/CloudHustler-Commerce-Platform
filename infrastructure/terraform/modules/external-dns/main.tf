@@ -1,11 +1,11 @@
 ####   Locals   ############################################################################
 # ExternalDNS Module Local Configuration: This file defines shared local values used throughout the ExternalDNS module.
 # It centralizes:
-    # 1. Resource naming.
-    # 2. Standard resource tags.
-    # 3. Kubernetes labels.
-    # 4. Helm values shared across the deployment.
-    # 5. Optional ServiceMonitor namespace selection.
+# 1. Resource naming.
+# 2. Standard resource tags.
+# 3. Kubernetes labels.
+# 4. Helm values shared across the deployment.
+# 5. Optional ServiceMonitor namespace selection.
 # Centralizing these values keeps the IAM, Kubernetes, and Helm configuration
 # consistent and prevents repeated naming and tagging logic across module files.
 ################################################################################
@@ -26,11 +26,11 @@ locals {
 ################################################################################
 # Standard AWS Resource Tags: Merges caller-provided tags with module-specific metadata.
 # Caller-provided tags may include:
-    # - Project
-    # - Environment
-    # - Owner
-    # - CostCenter
-    # - Repository
+# - Project
+# - Environment
+# - Owner
+# - CostCenter
+# - Repository
 # Module tags identify the workload and the provisioning mechanism.
 ################################################################################
 
@@ -53,7 +53,7 @@ locals {
     "app.kubernetes.io/name"       = "external-dns"
     "app.kubernetes.io/instance"   = var.name
     "app.kubernetes.io/component"  = "dns-controller"
-    "app.kubernetes.io/part-of" = var.platform_name
+    "app.kubernetes.io/part-of"    = var.platform_name
     "app.kubernetes.io/managed-by" = "Terraform"
   }
 }
@@ -84,8 +84,8 @@ locals {
 ################################################################################
 # ExternalDNS AWS Arguments: Builds AWS-specific command-line arguments used by ExternalDNS.
 # These arguments control:
-    # - Whether public or private Route 53 hosted zones are managed.
-    # - The maximum number of DNS changes submitted in each Route 53 batch.
+# - Whether public or private Route 53 hosted zones are managed.
+# - The maximum number of DNS changes submitted in each Route 53 batch.
 ################################################################################
 locals {
   aws_extra_args = [

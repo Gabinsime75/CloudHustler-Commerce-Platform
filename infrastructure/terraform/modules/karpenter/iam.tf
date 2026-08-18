@@ -40,7 +40,7 @@ module "karpenter_aws" {
   # ---------------------------------------------------------------------------
 
   iam_role_use_name_prefix = false
-  enable_inline_policy = true
+  enable_inline_policy     = true
 
   iam_role_name = coalesce(
     var.controller_iam_role_name,

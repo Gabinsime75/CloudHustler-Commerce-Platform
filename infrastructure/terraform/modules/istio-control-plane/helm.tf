@@ -32,9 +32,9 @@ locals {
       )
 
       pilot = {
-        autoscaleEnabled = var.enable_autoscaling
-        autoscaleMin     = var.autoscale_min_replicas
-        autoscaleMax     = var.autoscale_max_replicas
+        autoscaleEnabled      = var.enable_autoscaling
+        autoscaleMin          = var.autoscale_min_replicas
+        autoscaleMax          = var.autoscale_max_replicas
         rollingMaxSurge       = 0
         rollingMaxUnavailable = 1
 
@@ -58,9 +58,9 @@ locals {
 
         env = merge(
           {
-            PILOT_ENABLE_STATUS            = tostring(var.enable_status)
-            PILOT_ENABLE_ANALYSIS          = tostring(var.enable_config_analysis)
-            PILOT_ENABLE_GATEWAY_API       = tostring(var.enable_gateway_api)
+            PILOT_ENABLE_STATUS             = tostring(var.enable_status)
+            PILOT_ENABLE_ANALYSIS           = tostring(var.enable_config_analysis)
+            PILOT_ENABLE_GATEWAY_API        = tostring(var.enable_gateway_api)
             ENABLE_NATIVE_SIDECARS          = tostring(var.enable_native_sidecars)
             PILOT_ENABLE_IP_AUTOALLOCATE    = tostring(var.enable_ip_autoallocate)
             PILOT_ENABLE_GATEWAY_API_STATUS = tostring(var.enable_gateway_api_status)
@@ -133,7 +133,7 @@ resource "helm_release" "base" {
   values = var.additional_base_values
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 

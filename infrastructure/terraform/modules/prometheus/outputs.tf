@@ -53,7 +53,7 @@ output "helm_release_status" {
 
 output "helm_release_revision" {
   description = "Current Helm release revision."
-  value       =  helm_release.this.metadata.revision
+  value       = helm_release.this.metadata.revision
 }
 
 # -----------------------------------------------------------------------------

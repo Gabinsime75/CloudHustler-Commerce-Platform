@@ -245,6 +245,15 @@ locals {
   #############################################################
 
   route53_records = merge(
+
+    # ---------------------------------------------------------
+    # Public Application Record
+    #
+    # During Phase 7.2.3 this record is disabled in networking
+    # because cloudhusller.com will move to CloudFront and be
+    # managed by the edge-security Terraform root.
+    # ---------------------------------------------------------
+
     var.create_app_record ? {
       app = {
         name = var.app_domain_name
@@ -257,6 +266,36 @@ locals {
         }
       }
     } : {},
+
+    # ---------------------------------------------------------
+    # Secure CloudFront Origin Record
+    #
+    # This record remains owned by the networking root because
+    # it represents the origin-side relationship:
+    #
+    # origin.cloudhusller.com -> ALB
+    # ---------------------------------------------------------
+
+    {
+      origin = {
+        name = "origin.${var.domain_name}"
+        type = "A"
+
+        alias = {
+          name                   = module.alb.dns_name
+          zone_id                = module.alb.zone_id
+          evaluate_target_health = true
+        }
+      }
+    },
+
+    # ---------------------------------------------------------
+    # WWW Record
+    #
+    # This will also be disabled in networking because the
+    # public www hostname will be managed by edge-security and
+    # routed to CloudFront.
+    # ---------------------------------------------------------
 
     var.create_www_record ? {
       www = {
@@ -271,5 +310,4 @@ locals {
       }
     } : {}
   )
-
 }
