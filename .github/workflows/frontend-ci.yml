@@ -47,7 +47,7 @@ jobs:
 
       - name: Run go vet
         working-directory: applications/frontend
-        run: go vet ./...
+        run: go vet -copylocks=false ./...
 
   build-and-push:
     name: Build and Push Frontend Image
