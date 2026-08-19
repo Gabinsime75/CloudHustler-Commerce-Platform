@@ -27,27 +27,26 @@ jobs:
     name: Test Frontend
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: applications/frontend
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: applications/frontend/go.mod
           cache-dependency-path: applications/frontend/go.sum
 
       - name: Download dependencies
+        working-directory: applications/frontend
         run: go mod download
 
       - name: Run unit tests
+        working-directory: applications/frontend
         run: go test ./...
 
       - name: Run go vet
+        working-directory: applications/frontend
         run: go vet ./...
 
   build-and-push:
@@ -62,7 +61,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
