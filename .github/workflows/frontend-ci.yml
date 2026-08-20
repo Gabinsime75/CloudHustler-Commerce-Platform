@@ -17,6 +17,10 @@ on:
       - ".github/workflows/frontend-ci.yml"
       - ".github/workflows/reusable-service-ci.yml"
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   frontend:
     uses: ./.github/workflows/reusable-service-ci.yml
