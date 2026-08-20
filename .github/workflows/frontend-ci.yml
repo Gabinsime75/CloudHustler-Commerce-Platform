@@ -1,4 +1,5 @@
 name: Frontend CI
+
 on:
   push:
     branches:
@@ -6,6 +7,7 @@ on:
     paths:
       - "applications/frontend/**"
       - ".github/workflows/frontend-ci.yml"
+      - ".github/workflows/reusable-service-ci.yml"
 
   pull_request:
     branches:
@@ -13,101 +15,135 @@ on:
     paths:
       - "applications/frontend/**"
       - ".github/workflows/frontend-ci.yml"
-
-permissions:
-  contents: read
-  id-token: write
-
-env:
-  AWS_REGION: us-east-2
-  ECR_REPOSITORY: cloudhusller-commerce-platform-dev/frontend
+      - ".github/workflows/reusable-service-ci.yml"
 
 jobs:
-  test:
-    name: Test Frontend
-    runs-on: ubuntu-latest
+  frontend:
+    uses: ./.github/workflows/reusable-service-ci.yml
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+    with:
+      service_name: frontend
+      service_path: applications/frontend
+      runtime: go
+      aws_region: us-east-2
+      ecr_repository: cloudhusller-commerce-platform-dev/frontend
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
 
-      - name: Set up Go
-        uses: actions/setup-go@v6
-        with:
-          go-version-file: applications/frontend/go.mod
-          cache-dependency-path: applications/frontend/go.sum
+    secrets: inherit
 
-      - name: Download dependencies
-        working-directory: applications/frontend
-        run: go mod download
 
-      - name: Run unit tests
-        working-directory: applications/frontend
-        run: go test ./...
 
-      - name: Run go vet
-        working-directory: applications/frontend
-        run: go vet -copylocks=false ./...
+#############  unparametized frontend-ci.yml #################################################
+# name: Frontend CI
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - "applications/frontend/**"
+#       - ".github/workflows/frontend-ci.yml"
 
-      - name: Install govulncheck
-        working-directory: applications/frontend
-        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - "applications/frontend/**"
+#       - ".github/workflows/frontend-ci.yml"
 
-      - name: Run Go vulnerability scan
-        working-directory: applications/frontend
-        continue-on-error: true
-        run: govulncheck ./...
+# permissions:
+#   contents: read
+#   id-token: write
 
-  build-and-push:
-    name: Build and Push Frontend Image
-    runs-on: ubuntu-latest
+# env:
+#   AWS_REGION: us-east-2
+#   ECR_REPOSITORY: cloudhusller-commerce-platform-dev/frontend
 
-    needs:
-      - test
+# jobs:
+#   test:
+#     name: Test Frontend
+#     runs-on: ubuntu-latest
 
-    # Only push images from main.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v6
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+#       - name: Set up Go
+#         uses: actions/setup-go@v6
+#         with:
+#           go-version-file: applications/frontend/go.mod
+#           cache-dependency-path: applications/frontend/go.sum
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
-        with:
-          role-to-assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
-          aws-region: ${{ env.AWS_REGION }}
+#       - name: Download dependencies
+#         working-directory: applications/frontend
+#         run: go mod download
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+#       - name: Run unit tests
+#         working-directory: applications/frontend
+#         run: go test ./...
 
-      - name: Generate image tag
-        id: image
-        run: |
-          echo "tag=${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+#       - name: Run go vet
+#         working-directory: applications/frontend
+#         run: go vet -copylocks=false ./...
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            -t ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }} \
-            applications/frontend
+#       - name: Install govulncheck
+#         working-directory: applications/frontend
+#         run: go install golang.org/x/vuln/cmd/govulncheck@latest
 
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@v0.36.0
-        with:
-          image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}
-          format: table
-          severity: CRITICAL
-          ignore-unfixed: true
-          exit-code: "1"
+#       - name: Run Go vulnerability scan
+#         working-directory: applications/frontend
+#         continue-on-error: true
+#         run: govulncheck ./...
 
-      - name: Push Docker image
-        run: |
-          docker push \
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}
+#   build-and-push:
+#     name: Build and Push Frontend Image
+#     runs-on: ubuntu-latest
 
-      - name: Print published image
-        run: |
-          echo "Published image:"
-          echo "${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}"
+#     needs:
+#       - test
+
+#     # Only push images from main.
+#     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v6
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v6
+#         with:
+#           role-to-assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+#           aws-region: ${{ env.AWS_REGION }}
+
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v2
+
+#       - name: Generate image tag
+#         id: image
+#         run: |
+#           echo "tag=${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+
+#       - name: Build Docker image
+#         run: |
+#           docker build \
+#             -t ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }} \
+#             applications/frontend
+
+#       - name: Scan image with Trivy
+#         uses: aquasecurity/trivy-action@v0.36.0
+#         with:
+#           image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}
+#           format: table
+#           severity: CRITICAL
+#           ignore-unfixed: true
+#           exit-code: "1"
+
+#       - name: Push Docker image
+#         run: |
+#           docker push \
+#             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}
+
+#       - name: Print published image
+#         run: |
+#           echo "Published image:"
+#           echo "${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.image.outputs.tag }}"
