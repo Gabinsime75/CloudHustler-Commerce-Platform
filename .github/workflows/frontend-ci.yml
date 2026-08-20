@@ -48,6 +48,14 @@ jobs:
       - name: Run go vet
         working-directory: applications/frontend
         run: go vet -copylocks=false ./...
+        
+      - name: Install govulncheck
+        working-directory: applications/frontend
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+      - name: Run Go vulnerability scan
+        working-directory: applications/frontend
+        run: govulncheck ./...
 
   build-and-push:
     name: Build and Push Frontend Image
