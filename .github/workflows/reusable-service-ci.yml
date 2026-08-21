@@ -98,7 +98,17 @@ jobs:
       - name: Install Node.js dependencies
         if: inputs.runtime == 'node'
         working-directory: ${{ inputs.service_path }}
-        run: npm ci
+        shell: bash
+        run: |
+          TEST_SCRIPT=$(node -p "require('./package.json').scripts?.test || ''")
+
+          if [ -z "$TEST_SCRIPT" ]; then
+            echo "No npm test script defined - skipping tests."
+          elif echo "$TEST_SCRIPT" | grep -qi "no test specified"; then
+            echo "Placeholder npm test script detected - skipping tests."
+          else
+            npm test
+          fi
 
       - name: Run Node.js tests
         if: inputs.runtime == 'node'
