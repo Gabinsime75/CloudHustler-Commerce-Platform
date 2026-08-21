@@ -221,11 +221,34 @@ jobs:
           ignore-unfixed: true
           exit-code: "1"
 
+      - name: Check whether image tag already exists
+        id: check-tag
+        shell: bash
+        run: |
+          if aws ecr describe-images \
+            --repository-name ${{ inputs.ecr_repository }} \
+            --image-ids imageTag=${{ steps.image.outputs.tag }} \
+            --region ${{ inputs.aws_region }} \
+            > /dev/null 2>&1; then
+            echo "Image tag already exists in ECR."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Image tag does not exist in ECR."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Push Docker image
+        if: steps.check-tag.outputs.exists == 'false'
         shell: bash
         run: |
           docker push \
             ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr_repository }}:${{ steps.image.outputs.tag }}
+
+      - name: Skip existing immutable image
+        if: steps.check-tag.outputs.exists == 'true'
+        shell: bash
+        run: |
+          echo "Skipping push because immutable tag ${{ steps.image.outputs.tag }} already exists."
 
       - name: Print published image
         shell: bash
