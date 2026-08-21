@@ -15,11 +15,19 @@
 FROM --platform=$BUILDPLATFORM golang:1.25.12-alpine@sha256:56961d79ea8129efddcc0b8643fd8a5416b4e6228cfd477e3fd61deb2672c587 AS builder
 ARG TARGETOS
 ARG TARGETARCH
-
 WORKDIR /src
+
 # restore dependencies
 COPY go.mod go.sum ./
-RUN go mod download
+RUN set -eux; \
+    for i in 1 2 3; do \
+      GOPROXY=https://proxy.golang.org,direct go mod download && exit 0; \
+      echo "Dependency download failed - retrying in 5 seconds..."; \
+      sleep 5; \
+    done; \
+    exit 1
+
+
 COPY . .
 
 # Skaffold passes in debug-oriented compiler flags

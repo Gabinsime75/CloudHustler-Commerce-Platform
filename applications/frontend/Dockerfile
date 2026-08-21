@@ -19,7 +19,15 @@ WORKDIR /src
 
 # restore dependencies
 COPY go.mod go.sum ./
-RUN go mod download
+RUN set -eux; \
+    for i in 1 2 3; do \
+      GOPROXY=https://proxy.golang.org,direct go mod download && exit 0; \
+      echo "Dependency download failed - retrying in 5 seconds..."; \
+      sleep 5; \
+    done; \
+    exit 1
+
+
 COPY . .
 
 # Skaffold passes in debug-oriented compiler flags
