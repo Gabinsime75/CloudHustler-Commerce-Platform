@@ -22,12 +22,7 @@ if (process.env.DISABLE_PROFILER) {
   logger.info("Profiler disabled.")
 } else {
   logger.info("Profiler enabled.")
-  require('@google-cloud/profiler').start({
-    serviceContext: {
-      service: 'paymentservice',
-      version: '1.0.0'
-    }
-  });
+  
 }
 
 

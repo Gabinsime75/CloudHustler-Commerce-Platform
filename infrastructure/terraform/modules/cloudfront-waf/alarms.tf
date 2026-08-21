@@ -29,12 +29,12 @@ resource "aws_cloudwatch_metric_alarm" "blocked_requests" {
   }
 
   alarm_actions = [
-  aws_sns_topic.waf_alerts.arn
-]
+    aws_sns_topic.waf_alerts.arn
+  ]
 
-ok_actions = [
-  aws_sns_topic.waf_alerts.arn
-]
+  ok_actions = [
+    aws_sns_topic.waf_alerts.arn
+  ]
 
   treat_missing_data = "notBreaching"
 
@@ -63,12 +63,12 @@ resource "aws_cloudwatch_metric_alarm" "rate_limit" {
   treat_missing_data = "notBreaching"
 
 
-alarm_actions = [
-  aws_sns_topic.waf_alerts.arn
-]
+  alarm_actions = [
+    aws_sns_topic.waf_alerts.arn
+  ]
 
-ok_actions = [
-  aws_sns_topic.waf_alerts.arn
-]
+  ok_actions = [
+    aws_sns_topic.waf_alerts.arn
+  ]
   tags = var.tags
 }

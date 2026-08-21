@@ -72,59 +72,59 @@ resource "aws_cloudfront_distribution" "this" {
   # ---------------------------------------------------------------------------
 
   default_cache_behavior {
-  target_origin_id = var.origin_id
+    target_origin_id = var.origin_id
 
-  viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "redirect-to-https"
 
-  allowed_methods = [
-    "DELETE",
-    "GET",
-    "HEAD",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT"
-  ]
+    allowed_methods = [
+      "DELETE",
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "PATCH",
+      "POST",
+      "PUT"
+    ]
 
-  cached_methods = [
-    "GET",
-    "HEAD"
-  ]
+    cached_methods = [
+      "GET",
+      "HEAD"
+    ]
 
-  cache_policy_id = var.default_cache_policy_id
+    cache_policy_id = var.default_cache_policy_id
 
-  origin_request_policy_id = var.default_origin_request_policy_id
+    origin_request_policy_id = var.default_origin_request_policy_id
 
-  response_headers_policy_id = var.default_response_headers_policy_id
+    response_headers_policy_id = var.default_response_headers_policy_id
 
-  compress = true
-}
+    compress = true
+  }
 
   ordered_cache_behavior {
-  path_pattern     = "/static/*"
-  target_origin_id = var.origin_id
+    path_pattern     = "/static/*"
+    target_origin_id = var.origin_id
 
-  viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "redirect-to-https"
 
-  allowed_methods = [
-    "GET",
-    "HEAD",
-    "OPTIONS"
-  ]
+    allowed_methods = [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
 
-  cached_methods = [
-    "GET",
-    "HEAD"
-  ]
+    cached_methods = [
+      "GET",
+      "HEAD"
+    ]
 
-  cache_policy_id = var.static_cache_policy_id
+    cache_policy_id = var.static_cache_policy_id
 
-  origin_request_policy_id = var.static_origin_request_policy_id
+    origin_request_policy_id = var.static_origin_request_policy_id
 
-  response_headers_policy_id = var.static_response_headers_policy_id
+    response_headers_policy_id = var.static_response_headers_policy_id
 
-  compress = true
-}
+    compress = true
+  }
 
   # ---------------------------------------------------------------------------
   # Geographic Restrictions

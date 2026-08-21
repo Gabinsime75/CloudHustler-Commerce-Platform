@@ -1,0 +1,22 @@
+Senior/Enterprise style (my recommendation)
+git commit -m "feat(kms): implement reusable AWS KMS module"
+
+This follows the Conventional Commits specification:
+
+feat → New functionality
+fix → Bug fix
+docs → Documentation changes
+refactor → Code restructuring without changing behavior
+test → Tests
+chore → Maintenance tasks
+
+Since you're building a large repository (01-aws-enterprise-foundation), using Conventional Commits will make your Git history much cleaner.
+
+For example, future commits might look like:
+
+git commit -m "feat(vpc): add reusable VPC module"
+git commit -m "feat(s3): implement secure S3 bucket module"
+git commit -m "feat(iam): add IAM roles and policies module"
+git commit -m "feat(organization): create AWS Organizations structure"
+git commit -m "docs(kms): add module documentation"
+git commit -m "refactor(kms): simplify key policy configuration"
