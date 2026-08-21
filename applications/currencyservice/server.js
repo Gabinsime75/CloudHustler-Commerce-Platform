@@ -25,18 +25,7 @@ const logger = pino({
   }
 });
 
-if(process.env.DISABLE_PROFILER) {
-  logger.info("Profiler disabled.")
-}
-else {
-  logger.info("Profiler enabled.")
-  require('@google-cloud/profiler').start({
-    serviceContext: {
-      service: 'currencyservice',
-      version: '1.0.0'
-    }
-  });
-}
+logger.info("Google Cloud Profiler disabled for AWS deployment.");
 
 // Register GRPC OTel Instrumentation for trace propagation
 // regardless of whether tracing is emitted.
@@ -56,7 +45,7 @@ if(process.env.ENABLE_TRACING == "1") {
 
   const opentelemetry = require('@opentelemetry/sdk-node');
 
-  const { OTLPTraceExporter } = require('@opentelemetry/exporter-otlp-grpc');
+  const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-grpc');
 
   const collectorUrl = process.env.COLLECTOR_SERVICE_ADDR;
   const traceExporter = new OTLPTraceExporter({url: collectorUrl});
