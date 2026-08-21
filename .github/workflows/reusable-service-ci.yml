@@ -83,7 +83,7 @@ jobs:
         continue-on-error: true
         run: govulncheck ./...
 
-      # ============================================================
+            # ============================================================
       # Node.js
       # ============================================================
 
@@ -98,6 +98,11 @@ jobs:
       - name: Install Node.js dependencies
         if: inputs.runtime == 'node'
         working-directory: ${{ inputs.service_path }}
+        run: npm ci
+
+      - name: Run Node.js tests
+        if: inputs.runtime == 'node'
+        working-directory: ${{ inputs.service_path }}
         shell: bash
         run: |
           TEST_SCRIPT=$(node -p "require('./package.json').scripts?.test || ''")
@@ -109,12 +114,6 @@ jobs:
           else
             npm test
           fi
-
-      - name: Run Node.js tests
-        if: inputs.runtime == 'node'
-        working-directory: ${{ inputs.service_path }}
-        run: npm test --if-present
-
       # ============================================================
       # Python
       # ============================================================
