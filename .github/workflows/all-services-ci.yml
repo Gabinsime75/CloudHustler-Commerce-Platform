@@ -1,0 +1,77 @@
+name: All Services CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - "applications/**"
+      - ".github/workflows/reusable-service-ci.yml"
+      - ".github/workflows/all-services-ci.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  frontend:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: frontend
+      service_path: applications/frontend
+      runtime: go
+      ecr_repository: cloudhusller-commerce-platform-dev/frontend
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  checkoutservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: checkoutservice
+      service_path: applications/checkoutservice
+      runtime: go
+      ecr_repository: cloudhusller-commerce-platform-dev/checkoutservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  productcatalogservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: productcatalogservice
+      service_path: applications/productcatalogservice
+      runtime: go
+      ecr_repository: cloudhusller-commerce-platform-dev/productcatalogservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  shippingservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: shippingservice
+      service_path: applications/shippingservice
+      runtime: go
+      ecr_repository: cloudhusller-commerce-platform-dev/shippingservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  currencyservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: currencyservice
+      service_path: applications/currencyservice
+      runtime: node
+      ecr_repository: cloudhusller-commerce-platform-dev/currencyservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  paymentservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service_name: paymentservice
+      service_path: applications/paymentservice
+      runtime: node
+      ecr_repository: cloudhusller-commerce-platform-dev/paymentservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
