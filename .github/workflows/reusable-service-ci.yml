@@ -91,7 +91,7 @@ jobs:
         if: inputs.runtime == 'node'
         uses: actions/setup-node@v6
         with:
-          node-version: "24"
+          node-version: "20"
           cache: npm
           cache-dependency-path: ${{ inputs.service_path }}/package-lock.json
 
