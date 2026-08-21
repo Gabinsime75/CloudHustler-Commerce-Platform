@@ -335,6 +335,7 @@ Security is integrated throughout the software delivery lifecycle using a DevSec
 - Enterprise-Grade Security Posture
 
 ## 📊 Observability Layer
+![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/Cloudhustler-Commerce-Platform-Observability-Architecture.jpg)
 
 ### Monitoring
 
