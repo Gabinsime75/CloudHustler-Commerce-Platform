@@ -138,13 +138,13 @@ variable "helm_wait" {
 variable "helm_atomic" {
   description = "Determines whether Helm rolls back changes when the installation or upgrade fails."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "helm_cleanup_on_fail" {
   description = "Determines whether Helm removes newly created resources after a failed upgrade."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "helm_force_update" {

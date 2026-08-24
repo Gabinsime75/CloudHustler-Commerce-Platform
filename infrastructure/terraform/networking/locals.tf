@@ -103,7 +103,7 @@ locals {
 
         target_groups = [
           {
-            name   = "app"
+            name   = "istio_ingress"
             weight = 100
           }
         ]
