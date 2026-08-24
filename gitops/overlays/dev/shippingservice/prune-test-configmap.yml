@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-
-metadata:
-  name: shippingservice-gitops-prune-test
-  namespace: cloudhusller-dev
-
-data:
-  purpose: "Phase 8.4 prune validation"
