@@ -4,6 +4,7 @@ kind: Kustomization
 # Reuse the environment-independent shippingservice base.
 resources:
   - ../../../base/shippingservice
+  - prune-test-configmap.yml
 
 # Add the dev environment label to rendered resources.
 labels:
