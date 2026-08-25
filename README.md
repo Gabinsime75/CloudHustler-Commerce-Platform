@@ -125,12 +125,11 @@ Transform reactive operations into intelligent, automated incident management.
 - Event-Driven Integrations
 - Kubernetes-Based Scalability
 
-## 🏗️ Architecture Diagram
-
+## 🏗️ Architecture Diagram (I)
 ### CloudHustler Commerce Platform – Enterprise AWS Infrastructure & Platform Architecture
 ![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/Cloudhustler-Commerce-Platform-AWS-Architecture.jpg)
 
-
+## 🏗️ Architecture Diagram (II)
 ### CloudHustler Commerce Platform – Cloud-Native Microservices Application Architecture
 ![alt text](https://github.com/Gabinsime75/CloudHustler-Commerce-Platform/blob/main/docs/architecture/Cloudhustler-Commerce-Platform-Architecture.jpg)
 
