@@ -43,6 +43,8 @@ spec:
             # gRPC listening port.
             - name: PORT
               value: "50051"
+            - name: ROLLBACK_VALIDATION
+              value: "version-2"
 
           # Basic TCP readiness check for the gRPC endpoint.
           readinessProbe:
