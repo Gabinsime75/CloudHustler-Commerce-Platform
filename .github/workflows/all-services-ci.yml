@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+
     paths:
       - "applications/**"
       - ".github/workflows/reusable-service-ci.yml"
@@ -18,6 +19,7 @@ permissions:
 jobs:
   frontend:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: frontend
       service_path: applications/frontend
@@ -28,6 +30,7 @@ jobs:
 
   checkoutservice:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: checkoutservice
       service_path: applications/checkoutservice
@@ -38,6 +41,7 @@ jobs:
 
   productcatalogservice:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: productcatalogservice
       service_path: applications/productcatalogservice
@@ -48,6 +52,7 @@ jobs:
 
   shippingservice:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: shippingservice
       service_path: applications/shippingservice
@@ -58,6 +63,7 @@ jobs:
 
   currencyservice:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: currencyservice
       service_path: applications/currencyservice
@@ -68,10 +74,22 @@ jobs:
 
   paymentservice:
     uses: ./.github/workflows/reusable-service-ci.yml
+
     with:
       service_name: paymentservice
       service_path: applications/paymentservice
       runtime: node
       ecr_repository: cloudhusller-commerce-platform-dev/paymentservice
+      aws_region: us-east-2
+      role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
+
+  cartservice:
+    uses: ./.github/workflows/reusable-service-ci.yml
+
+    with:
+      service_name: cartservice
+      service_path: applications/cartservice/src
+      runtime: dotnet
+      ecr_repository: cloudhusller-commerce-platform-dev/cartservice
       aws_region: us-east-2
       role_to_assume: arn:aws:iam::396913735153:role/cloudhusller-commerce-platform-dev-github-actions-ci
