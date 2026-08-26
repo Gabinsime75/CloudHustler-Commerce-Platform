@@ -22,3 +22,18 @@ output "github_oidc_provider_arn" {
   description = "GitHub Actions IAM OIDC provider ARN."
   value       = aws_iam_openid_connect_provider.github.arn
 }
+
+output "cartservice_ecr_repository_name" {
+  description = "CartService ECR repository name."
+  value       = module.cartservice_ecr.repository_name
+}
+
+output "cartservice_ecr_repository_url" {
+  description = "CartService ECR repository URL."
+  value       = module.cartservice_ecr.repository_url
+}
+
+output "cartservice_ecr_repository_arn" {
+  description = "CartService ECR repository ARN."
+  value       = module.cartservice_ecr.repository_arn
+}

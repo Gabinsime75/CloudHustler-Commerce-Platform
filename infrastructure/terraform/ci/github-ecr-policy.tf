@@ -43,7 +43,8 @@ data "aws_iam_policy_document" "github_actions_ecr" {
       module.productcatalogservice_ecr.repository_arn,
       module.shippingservice_ecr.repository_arn,
       module.currencyservice_ecr.repository_arn,
-      module.paymentservice_ecr.repository_arn
+      module.paymentservice_ecr.repository_arn,
+      module.cartservice_ecr.repository_arn
     ]
   }
 }

@@ -57,3 +57,11 @@ module "paymentservice_ecr" {
 
   tags = var.tags
 }
+
+module "cartservice_ecr" {
+  source = "../modules/ecr"
+
+  repository_name = "${var.project_name}-${var.environment}/cartservice"
+
+  tags = var.tags
+}
