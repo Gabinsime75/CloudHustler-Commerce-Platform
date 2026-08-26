@@ -19,7 +19,8 @@ kubectl get applications -n argocd
 Result:
 
 ```text
-<PASTE OUTPUT HERE>
+<img width="501" height="236" alt="Screenshot 2026-08-26 000820" src="https://github.com/user-attachments/assets/79cb36ce-5635-4164-99f1-6b29804fd285" />
+
 ```
 
 Validation:
