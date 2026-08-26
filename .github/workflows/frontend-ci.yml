@@ -17,6 +17,8 @@ on:
       - ".github/workflows/frontend-ci.yml"
       - ".github/workflows/reusable-service-ci.yml"
 
+  workflow_dispatch:
+
 permissions:
   contents: read
   id-token: write
