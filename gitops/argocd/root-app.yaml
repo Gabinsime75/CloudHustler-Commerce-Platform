@@ -10,7 +10,10 @@ spec:
   source:
     repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
     targetRevision: main
-    path: gitops/argocd/app-of-apps
+    path: gitops/argocd/applications
+
+    directory:
+      recurse: false
 
   destination:
     server: https://kubernetes.default.svc
