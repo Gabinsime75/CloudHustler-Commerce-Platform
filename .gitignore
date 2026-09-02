@@ -58,6 +58,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+*.tfpla
 
 # Terraform variable files containing secrets
 *.auto.tfvars
