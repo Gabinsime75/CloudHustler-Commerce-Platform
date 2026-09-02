@@ -1,0 +1,1315 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/cartservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/cartservice-dev"},"name":"cartservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/cartservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-26T04:57:58Z"
+    generation: 106
+    name: cartservice-dev
+    namespace: argocd
+    resourceVersion: "1445674"
+    uid: 672c8441-121a-4100-a534-6b4856ad7e09
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/cartservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-26T04:58:13Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-26T04:57:59Z"
+      deployedAt: "2026-08-26T04:58:00Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 010ce857708f99975fdbda80ce08649c732592e0
+      source:
+        path: gitops/overlays/dev/cartservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-26T04:58:00Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 010ce857708f99975fdbda80ce08649c732592e0
+          source:
+            path: gitops/overlays/dev/cartservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-26T04:57:59Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/cartservice created
+          name: cartservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/cartservice:0ee7c36fa3b9
+          kind: Deployment
+          message: deployment.apps/cartservice created
+          name: cartservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 010ce857708f99975fdbda80ce08649c732592e0
+        source:
+          path: gitops/overlays/dev/cartservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:05:48Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: cartservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: cartservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/cartservice:0ee7c36fa3b9
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/cartservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/checkoutservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/checkoutservice-dev"},"name":"checkoutservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/checkoutservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T05:28:37Z"
+    generation: 1024
+    name: checkoutservice-dev
+    namespace: argocd
+    resourceVersion: "1445697"
+    uid: 8d22a04c-1bdc-4312-bab4-020b96aeabdd
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/checkoutservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-24T05:43:20Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T05:28:37Z"
+      deployedAt: "2026-08-24T05:28:37Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/checkoutservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-24T05:28:37Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: b6ae3e66cb8281110de61cda11b0899861132816
+          source:
+            path: gitops/overlays/dev/checkoutservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-24T05:28:37Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/checkoutservice created
+          name: checkoutservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/checkoutservice:cba99ed13039
+          kind: Deployment
+          message: deployment.apps/checkoutservice created
+          name: checkoutservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: b6ae3e66cb8281110de61cda11b0899861132816
+        source:
+          path: gitops/overlays/dev/checkoutservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:05:53Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: checkoutservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: checkoutservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/checkoutservice:cba99ed13039
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/checkoutservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"cloudhusller-dev-apps","namespace":"argocd"},"spec":{"destination":{"namespace":"argocd","server":"https://kubernetes.default.svc"},"project":"default","revisionHistoryLimit":10,"source":{"directory":{"recurse":false},"path":"gitops/argocd/applications","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-26T05:55:52Z"
+    generation: 103
+    name: cloudhusller-dev-apps
+    namespace: argocd
+    resourceVersion: "1445930"
+    uid: 2b7ba913-17e3-4cd2-a920-1b5fc62015ce
+  spec:
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: default
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/argocd/applications
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-26T05:55:53Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-26T06:02:21Z"
+      deployedAt: "2026-08-26T06:02:22Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 3070f482b34a96da1144b9667d09ac5a4735d869
+      source:
+        path: gitops/argocd/applications
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-26T06:12:39Z"
+      deployedAt: "2026-08-26T06:12:40Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: a0bcd0f6732f6de37516bf8297db818b94e14bcc
+      source:
+        path: gitops/argocd/applications
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-26T06:12:40Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: a0bcd0f6732f6de37516bf8297db818b94e14bcc
+          source:
+            path: gitops/argocd/applications
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-26T06:12:39Z"
+      syncResult:
+        resources:
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/checkoutservice-dev configured
+          name: checkoutservice-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/currencyservice-dev configured
+          name: currencyservice-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/shippingservice-dev configured
+          name: shippingservice-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/productcatalogservice-dev configured
+          name: productcatalogservice-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/frontend-dev configured
+          name: frontend-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        - group: argoproj.io
+          hookPhase: Running
+          kind: Application
+          message: application.argoproj.io/paymentservice-dev configured
+          name: paymentservice-dev
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1alpha1
+        revision: a0bcd0f6732f6de37516bf8297db818b94e14bcc
+        source:
+          path: gitops/argocd/applications
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:06:34Z"
+    resourceHealthSource: appTree
+    resources:
+    - group: argoproj.io
+      kind: Application
+      name: cartservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: checkoutservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: currencyservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: frontend-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: istio-routing-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: paymentservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: productcatalogservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: redis-cart-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    - group: argoproj.io
+      kind: Application
+      name: shippingservice-dev
+      namespace: argocd
+      status: Synced
+      version: v1alpha1
+    sourceHydrator: {}
+    sourceType: Directory
+    summary:
+      isAppOfApps: true
+    sync:
+      comparedTo:
+        destination:
+          namespace: argocd
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/argocd/applications
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/currencyservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/currencyservice-dev"},"name":"currencyservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/currencyservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T05:53:57Z"
+    generation: 1010
+    name: currencyservice-dev
+    namespace: argocd
+    resourceVersion: "1445181"
+    uid: 5ae3c669-2c49-4f51-9341-0392b6ca5a8b
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/currencyservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-24T06:13:42Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T05:53:57Z"
+      deployedAt: "2026-08-24T05:53:57Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/currencyservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-24T05:53:57Z"
+      message: successfully synced (no more tasks)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          autoHealAttemptsCount: 1
+          prune: true
+          resources:
+          - kind: Service
+            name: currencyservice
+          - group: apps
+            kind: Deployment
+            name: currencyservice
+          revision: b6ae3e66cb8281110de61cda11b0899861132816
+          source:
+            path: gitops/overlays/dev/currencyservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-24T05:53:57Z"
+      syncResult:
+        revision: b6ae3e66cb8281110de61cda11b0899861132816
+        source:
+          path: gitops/overlays/dev/currencyservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:04:22Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: currencyservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: currencyservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/currencyservice:6dfc622b3847
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/currencyservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/hydrate: normal
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/frontend-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/frontend-dev"},"name":"frontend-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/frontend","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T03:41:30Z"
+    generation: 1070
+    name: frontend-dev
+    namespace: argocd
+    resourceVersion: "1445886"
+    uid: 8cd0eef6-31e8-4bf0-af49-5418cf3126dd
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/frontend
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-26T06:52:44Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T03:58:52Z"
+      deployedAt: "2026-08-24T03:58:53Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 1ceb996940b3e2e70852577afe1a81e9f59b2661
+      source:
+        path: gitops/overlays/dev/frontend
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-24T04:08:04Z"
+      deployedAt: "2026-08-24T04:08:05Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/frontend
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-26T06:52:17Z"
+      deployedAt: "2026-08-26T06:52:18Z"
+      id: 2
+      initiatedBy:
+        automated: true
+      revision: c2fe33e787c3986d9801672b42c1e1ec493f2005
+      source:
+        path: gitops/overlays/dev/frontend
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-26T06:52:18Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: c2fe33e787c3986d9801672b42c1e1ec493f2005
+          source:
+            path: gitops/overlays/dev/frontend
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-26T06:52:17Z"
+      syncResult:
+        resources:
+        - group: apps
+          hookPhase: Running
+          images:
+          - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/frontend:f280c4396897
+          kind: Deployment
+          message: deployment.apps/frontend configured
+          name: frontend
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: c2fe33e787c3986d9801672b42c1e1ec493f2005
+        source:
+          path: gitops/overlays/dev/frontend
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:06:26Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: frontend
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: frontend
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/frontend:f280c4396897
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/frontend
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/istio-routing-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/istio-routing-dev"},"name":"istio-routing-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/istio-routing","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-25T04:10:57Z"
+    generation: 582
+    name: istio-routing-dev
+    namespace: argocd
+    resourceVersion: "1445896"
+    uid: cbafca52-5bf1-4f51-8c69-52d0ea86b01c
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/istio-routing
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-25T04:10:58Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-25T04:10:57Z"
+      deployedAt: "2026-08-25T04:10:58Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: a7ee9bdcf90f4209fd51bb992e3e286a4e14f486
+      source:
+        path: gitops/overlays/dev/istio-routing
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-25T04:10:58Z"
+      message: successfully synced (no more tasks)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          autoHealAttemptsCount: 1
+          prune: true
+          resources:
+          - group: networking.istio.io
+            kind: VirtualService
+            name: frontend
+          revision: a7ee9bdcf90f4209fd51bb992e3e286a4e14f486
+          source:
+            path: gitops/overlays/dev/istio-routing
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-25T04:10:58Z"
+      syncResult:
+        revision: a7ee9bdcf90f4209fd51bb992e3e286a4e14f486
+        source:
+          path: gitops/overlays/dev/istio-routing
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:06:28Z"
+    resourceHealthSource: appTree
+    resources:
+    - group: networking.istio.io
+      kind: Gateway
+      name: cloudhusller-gateway
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: networking.istio.io
+      kind: VirtualService
+      name: frontend
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary: {}
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/istio-routing
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/paymentservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/paymentservice-dev"},"name":"paymentservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/paymentservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T05:48:27Z"
+    generation: 1002
+    name: paymentservice-dev
+    namespace: argocd
+    resourceVersion: "1445664"
+    uid: bf5f415c-c275-4a3d-89b2-585491e4337f
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/paymentservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-24T06:13:45Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T05:50:04Z"
+      deployedAt: "2026-08-24T05:50:14Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/paymentservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-24T05:50:14Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: b6ae3e66cb8281110de61cda11b0899861132816
+          source:
+            path: gitops/overlays/dev/paymentservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      retryCount: 1
+      startedAt: "2026-08-24T05:50:04Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/paymentservice created
+          name: paymentservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/paymentservice:6dfc622b3847
+          kind: Deployment
+          message: deployment.apps/paymentservice created
+          name: paymentservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: b6ae3e66cb8281110de61cda11b0899861132816
+        source:
+          path: gitops/overlays/dev/paymentservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:05:47Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: paymentservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: paymentservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/paymentservice:6dfc622b3847
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/paymentservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/productcatalogservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/productcatalogservice-dev"},"name":"productcatalogservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/productcatalogservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T05:28:38Z"
+    generation: 1015
+    name: productcatalogservice-dev
+    namespace: argocd
+    resourceVersion: "1445622"
+    uid: 9121f50b-bd28-4a16-895d-0282d225bc56
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/productcatalogservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-24T05:28:51Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T05:28:38Z"
+      deployedAt: "2026-08-24T05:28:39Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/productcatalogservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-24T05:28:39Z"
+      message: successfully synced (no more tasks)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          autoHealAttemptsCount: 1
+          prune: true
+          resources:
+          - group: apps
+            kind: Deployment
+            name: productcatalogservice
+          revision: b6ae3e66cb8281110de61cda11b0899861132816
+          source:
+            path: gitops/overlays/dev/productcatalogservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-24T05:28:39Z"
+      syncResult:
+        revision: b6ae3e66cb8281110de61cda11b0899861132816
+        source:
+          path: gitops/overlays/dev/productcatalogservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:05:39Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: productcatalogservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: productcatalogservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/productcatalogservice:ebeb93d50630
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/productcatalogservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/redis-cart-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/redis-cart-dev"},"name":"redis-cart-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/redis-cart","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-26T04:58:09Z"
+    generation: 110
+    name: redis-cart-dev
+    namespace: argocd
+    resourceVersion: "1445742"
+    uid: 6aaec6cf-4b9c-40ff-86c5-91df9446d391
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/redis-cart
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-26T04:58:18Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-26T04:58:09Z"
+      deployedAt: "2026-08-26T04:58:10Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 010ce857708f99975fdbda80ce08649c732592e0
+      source:
+        path: gitops/overlays/dev/redis-cart
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-26T04:58:10Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 010ce857708f99975fdbda80ce08649c732592e0
+          source:
+            path: gitops/overlays/dev/redis-cart
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-26T04:58:09Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/redis-cart created
+          name: redis-cart
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - redis:7.4-alpine
+          kind: Deployment
+          message: deployment.apps/redis-cart created
+          name: redis-cart
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 010ce857708f99975fdbda80ce08649c732592e0
+        source:
+          path: gitops/overlays/dev/redis-cart
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:06:01Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: redis-cart
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: redis-cart
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - redis:7.4-alpine
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/redis-cart
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/tracking-id: cloudhusller-dev-apps:argoproj.io/Application:argocd/shippingservice-dev
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"cloudhusller-dev-apps:argoproj.io/Application:argocd/shippingservice-dev"},"name":"shippingservice-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"cloudhusller-dev","server":"https://kubernetes.default.svc"},"project":"cloudhusller-dev","revisionHistoryLimit":10,"source":{"path":"gitops/overlays/dev/shippingservice","repoURL":"https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true","ApplyOutOfSyncOnly=true"]}}}
+    creationTimestamp: "2026-08-24T05:46:10Z"
+    generation: 1029
+    name: shippingservice-dev
+    namespace: argocd
+    resourceVersion: "1445231"
+    uid: 497c0ea3-e66c-4a46-8610-58be572e1c19
+  spec:
+    destination:
+      namespace: cloudhusller-dev
+      server: https://kubernetes.default.svc
+    project: cloudhusller-dev
+    revisionHistoryLimit: 10
+    source:
+      path: gitops/overlays/dev/shippingservice
+      repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-08-26T05:34:48Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-08-24T05:46:10Z"
+      deployedAt: "2026-08-24T05:46:11Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: b6ae3e66cb8281110de61cda11b0899861132816
+      source:
+        path: gitops/overlays/dev/shippingservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-24T06:28:13Z"
+      deployedAt: "2026-08-24T06:28:13Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 8ebaf2c052ad20966ac3db5432cf6caabfda4aeb
+      source:
+        path: gitops/overlays/dev/shippingservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-24T06:39:48Z"
+      deployedAt: "2026-08-24T06:39:48Z"
+      id: 2
+      initiatedBy:
+        automated: true
+      revision: 73104095c2fe18c06e587cb9cea8dade94d639c6
+      source:
+        path: gitops/overlays/dev/shippingservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-24T06:54:14Z"
+      deployedAt: "2026-08-24T06:54:15Z"
+      id: 3
+      initiatedBy:
+        automated: true
+      revision: f7d891c7844c267c409deb7b3924db54540bcf72
+      source:
+        path: gitops/overlays/dev/shippingservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    - deployStartedAt: "2026-08-26T05:34:23Z"
+      deployedAt: "2026-08-26T05:34:24Z"
+      id: 4
+      initiatedBy:
+        automated: true
+      revision: 342476840f26ebe02017d19d976411d58db6d7b8
+      source:
+        path: gitops/overlays/dev/shippingservice
+        repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-08-26T05:34:24Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 342476840f26ebe02017d19d976411d58db6d7b8
+          source:
+            path: gitops/overlays/dev/shippingservice
+            repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+            targetRevision: main
+          syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+      phase: Succeeded
+      startedAt: "2026-08-26T05:34:23Z"
+      syncResult:
+        resources:
+        - group: apps
+          hookPhase: Running
+          images:
+          - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/shippingservice:0a292fcb9a2c
+          kind: Deployment
+          message: deployment.apps/shippingservice configured
+          name: shippingservice
+          namespace: cloudhusller-dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 342476840f26ebe02017d19d976411d58db6d7b8
+        source:
+          path: gitops/overlays/dev/shippingservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+    reconciledAt: "2026-08-26T10:04:30Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: shippingservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: shippingservice
+      namespace: cloudhusller-dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/shippingservice:0a292fcb9a2c
+    sync:
+      comparedTo:
+        destination:
+          namespace: cloudhusller-dev
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/overlays/dev/shippingservice
+          repoURL: https://github.com/Gabinsime75/CloudHustler-Commerce-Platform.git
+          targetRevision: main
+      revision: d4f30c2ac79263d67ce3fd29c0915ee57032f29d
+      status: Synced
+kind: List
+metadata:
+  resourceVersion: ""

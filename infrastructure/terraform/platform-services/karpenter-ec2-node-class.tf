@@ -74,7 +74,7 @@ resource "kubernetes_manifest" "karpenter_ec2_node_class" {
 
       securityGroupSelectorTerms = [
         {
-          id = var.cluster_security_group_id
+          id = data.aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
         }
       ]
 

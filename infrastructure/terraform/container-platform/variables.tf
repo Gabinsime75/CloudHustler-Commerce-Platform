@@ -209,3 +209,8 @@ variable "create_ebs_csi_pod_identity" {
   type        = bool
   default     = true
 }
+
+variable "alb_security_group_id" {
+  description = "Security group ID of the public ALB allowed to reach Istio ingress"
+  type        = string
+}

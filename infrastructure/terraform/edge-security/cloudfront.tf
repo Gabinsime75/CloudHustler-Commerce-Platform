@@ -31,7 +31,7 @@ module "cloudfront" {
   static_cache_policy_id  = data.aws_cloudfront_cache_policy.caching_optimized.id
 
   default_origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewer.id
-  static_origin_request_policy_id  = data.aws_cloudfront_origin_request_policy.cors_custom_origin.id
+  static_origin_request_policy_id  = data.aws_cloudfront_origin_request_policy.all_viewer.id
 
   default_response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers.id
   static_response_headers_policy_id  = aws_cloudfront_response_headers_policy.security_headers.id

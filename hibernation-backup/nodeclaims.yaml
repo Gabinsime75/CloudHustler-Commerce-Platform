@@ -1,0 +1,445 @@
+apiVersion: v1
+items:
+- apiVersion: karpenter.sh/v1
+  kind: NodeClaim
+  metadata:
+    annotations:
+      compatibility.karpenter.k8s.aws/cluster-name-tagged: "true"
+      karpenter.k8s.aws/ec2nodeclass-hash: "2096614555968838218"
+      karpenter.k8s.aws/ec2nodeclass-hash-version: v5
+      karpenter.k8s.aws/instance-profile-name: cloudhusller-commerce-platform-dev-eks_16156594160455229137
+      karpenter.k8s.aws/tagged: "true"
+      karpenter.sh/nodeclaim-min-values-relaxed: "false"
+      karpenter.sh/nodepool-hash: "5103163378093762294"
+      karpenter.sh/nodepool-hash-version: v3
+    creationTimestamp: "2026-08-24T06:12:55Z"
+    finalizers:
+    - karpenter.sh/termination
+    generateName: default-
+    generation: 1
+    labels:
+      environment: dev
+      karpenter.k8s.aws/ec2nodeclass: default
+      karpenter.k8s.aws/instance-capability-flex: "false"
+      karpenter.k8s.aws/instance-category: c
+      karpenter.k8s.aws/instance-cpu: "2"
+      karpenter.k8s.aws/instance-cpu-manufacturer: amd
+      karpenter.k8s.aws/instance-cpu-sustained-clock-speed-mhz: "3600"
+      karpenter.k8s.aws/instance-ebs-bandwidth: "10000"
+      karpenter.k8s.aws/instance-encryption-in-transit-supported: "true"
+      karpenter.k8s.aws/instance-family: c6a
+      karpenter.k8s.aws/instance-generation: "6"
+      karpenter.k8s.aws/instance-hypervisor: nitro
+      karpenter.k8s.aws/instance-memory: "4096"
+      karpenter.k8s.aws/instance-network-bandwidth: "781"
+      karpenter.k8s.aws/instance-size: large
+      karpenter.k8s.aws/instance-tenancy: default
+      karpenter.sh/capacity-type: on-demand
+      karpenter.sh/nodepool: default
+      kubernetes.io/arch: amd64
+      kubernetes.io/os: linux
+      node.cloudhusller.com/managed-by: karpenter
+      node.cloudhusller.com/node-pool: default
+      node.kubernetes.io/instance-type: c6a.large
+      topology.k8s.aws/zone-id: use2-az1
+      topology.kubernetes.io/region: us-east-2
+      topology.kubernetes.io/zone: us-east-2a
+    name: default-xk2dx
+    ownerReferences:
+    - apiVersion: karpenter.sh/v1
+      blockOwnerDeletion: true
+      kind: NodePool
+      name: default
+      uid: 48f7d0b8-acd0-4dff-80c0-271c02ee5fdf
+    resourceVersion: "1380679"
+    uid: f1dd84eb-5e78-4051-bdf9-4ec74227c55e
+  spec:
+    expireAfter: 720h
+    nodeClassRef:
+      group: karpenter.k8s.aws
+      kind: EC2NodeClass
+      name: default
+    requirements:
+    - key: karpenter.k8s.aws/instance-cpu
+      operator: In
+      values:
+      - "16"
+      - "2"
+      - "4"
+      - "8"
+    - key: karpenter.sh/capacity-type
+      operator: In
+      values:
+      - on-demand
+    - key: karpenter.k8s.aws/instance-generation
+      operator: Gte
+      values:
+      - "3"
+    - key: node.cloudhusller.com/node-pool
+      operator: In
+      values:
+      - default
+    - key: node.cloudhusller.com/managed-by
+      operator: In
+      values:
+      - karpenter
+    - key: karpenter.k8s.aws/ec2nodeclass
+      operator: In
+      values:
+      - default
+    - key: karpenter.sh/nodepool
+      operator: In
+      values:
+      - default
+    - key: kubernetes.io/os
+      operator: In
+      values:
+      - linux
+    - key: environment
+      operator: In
+      values:
+      - dev
+    - key: karpenter.k8s.aws/instance-category
+      operator: In
+      values:
+      - c
+      - m
+      - r
+    - key: node.kubernetes.io/instance-type
+      operator: In
+      values:
+      - c4.2xlarge
+      - c4.4xlarge
+      - c4.large
+      - c4.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.large
+      - c5.xlarge
+      - c5a.2xlarge
+      - c5a.4xlarge
+      - c5a.large
+      - c5a.xlarge
+      - c5ad.2xlarge
+      - c5ad.4xlarge
+      - c5ad.large
+      - c5ad.xlarge
+      - c5d.2xlarge
+      - c5d.4xlarge
+      - c5d.large
+      - c5d.xlarge
+      - c5n.2xlarge
+      - c5n.4xlarge
+      - c5n.large
+      - c5n.xlarge
+      - c6a.2xlarge
+      - c6a.4xlarge
+      - c6a.large
+      - c6a.xlarge
+      - c6i.2xlarge
+      - c6i.4xlarge
+      - c6i.large
+      - c6i.xlarge
+      - c6id.2xlarge
+      - c6id.4xlarge
+      - c6id.large
+      - c6id.xlarge
+      - c6in.2xlarge
+      - c6in.4xlarge
+      - c6in.large
+      - c6in.xlarge
+      - c7a.2xlarge
+      - c7a.4xlarge
+      - c7a.large
+      - c7a.xlarge
+      - c7i-flex.2xlarge
+      - c7i-flex.4xlarge
+      - c7i-flex.large
+      - c7i-flex.xlarge
+      - c7i.2xlarge
+      - c7i.4xlarge
+      - c7i.large
+      - c7i.xlarge
+      - c8a.2xlarge
+      - c8a.4xlarge
+      - c8a.large
+      - c8a.xlarge
+      - c8i-flex.2xlarge
+      - c8i-flex.4xlarge
+      - c8i-flex.large
+      - c8i-flex.xlarge
+      - c8i.2xlarge
+      - c8i.4xlarge
+      - c8i.large
+      - c8i.xlarge
+      - c8id.2xlarge
+      - c8id.4xlarge
+      - c8id.large
+      - c8id.xlarge
+      - c8in.2xlarge
+      - c8in.4xlarge
+      - c8in.large
+      - c8in.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+      - m4.large
+      - m4.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+      - m5.large
+      - m5.xlarge
+      - m5a.2xlarge
+      - m5a.4xlarge
+      - m5a.large
+      - m5a.xlarge
+      - m5ad.2xlarge
+      - m5ad.4xlarge
+      - m5ad.large
+      - m5ad.xlarge
+      - m5d.2xlarge
+      - m5d.4xlarge
+      - m5d.large
+      - m5d.xlarge
+      - m5dn.2xlarge
+      - m5dn.4xlarge
+      - m5dn.large
+      - m5dn.xlarge
+      - m5n.2xlarge
+      - m5n.4xlarge
+      - m5n.large
+      - m5n.xlarge
+      - m5zn.2xlarge
+      - m5zn.large
+      - m5zn.xlarge
+      - m6a.2xlarge
+      - m6a.4xlarge
+      - m6a.large
+      - m6a.xlarge
+      - m6i.2xlarge
+      - m6i.4xlarge
+      - m6i.large
+      - m6i.xlarge
+      - m6id.2xlarge
+      - m6id.4xlarge
+      - m6id.large
+      - m6id.xlarge
+      - m6idn.2xlarge
+      - m6idn.4xlarge
+      - m6idn.large
+      - m6idn.xlarge
+      - m6in.2xlarge
+      - m6in.4xlarge
+      - m6in.large
+      - m6in.xlarge
+      - m7a.2xlarge
+      - m7a.4xlarge
+      - m7a.large
+      - m7a.xlarge
+      - m7i-flex.2xlarge
+      - m7i-flex.4xlarge
+      - m7i-flex.large
+      - m7i-flex.xlarge
+      - m7i.2xlarge
+      - m7i.4xlarge
+      - m7i.large
+      - m7i.xlarge
+      - m8a.2xlarge
+      - m8a.4xlarge
+      - m8a.large
+      - m8a.xlarge
+      - m8azn.large
+      - m8azn.xlarge
+      - m8i-flex.2xlarge
+      - m8i-flex.4xlarge
+      - m8i-flex.large
+      - m8i-flex.xlarge
+      - m8i.2xlarge
+      - m8i.4xlarge
+      - m8i.large
+      - m8i.xlarge
+      - m8ib.2xlarge
+      - m8ib.4xlarge
+      - m8ib.large
+      - m8ib.xlarge
+      - m8id.2xlarge
+      - m8id.4xlarge
+      - m8id.large
+      - m8id.xlarge
+      - m8idb.2xlarge
+      - m8idb.4xlarge
+      - m8idb.large
+      - m8idb.xlarge
+      - m8idn.2xlarge
+      - m8idn.4xlarge
+      - m8idn.large
+      - m8idn.xlarge
+      - m8in.2xlarge
+      - m8in.4xlarge
+      - m8in.large
+      - m8in.xlarge
+      - r3.2xlarge
+      - r3.4xlarge
+      - r3.large
+      - r3.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+      - r4.large
+      - r4.xlarge
+      - r5.2xlarge
+      - r5.4xlarge
+      - r5.large
+      - r5.xlarge
+      - r5a.2xlarge
+      - r5a.4xlarge
+      - r5a.large
+      - r5a.xlarge
+      - r5ad.2xlarge
+      - r5ad.4xlarge
+      - r5ad.large
+      - r5ad.xlarge
+      - r5b.2xlarge
+      - r5b.4xlarge
+      - r5b.large
+      - r5b.xlarge
+      - r5d.2xlarge
+      - r5d.4xlarge
+      - r5d.large
+      - r5d.xlarge
+      - r5dn.2xlarge
+      - r5dn.4xlarge
+      - r5dn.large
+      - r5dn.xlarge
+      - r5n.2xlarge
+      - r5n.4xlarge
+      - r5n.large
+      - r5n.xlarge
+      - r6a.2xlarge
+      - r6a.4xlarge
+      - r6a.large
+      - r6a.xlarge
+      - r6i.2xlarge
+      - r6i.4xlarge
+      - r6i.large
+      - r6i.xlarge
+      - r6id.2xlarge
+      - r6id.4xlarge
+      - r6id.large
+      - r6id.xlarge
+      - r6idn.2xlarge
+      - r6idn.4xlarge
+      - r6idn.large
+      - r6idn.xlarge
+      - r6in.2xlarge
+      - r6in.4xlarge
+      - r6in.large
+      - r6in.xlarge
+      - r7a.2xlarge
+      - r7a.4xlarge
+      - r7a.large
+      - r7a.xlarge
+      - r7i.2xlarge
+      - r7i.4xlarge
+      - r7i.large
+      - r7i.xlarge
+      - r7iz.2xlarge
+      - r7iz.4xlarge
+      - r7iz.large
+      - r7iz.xlarge
+      - r8a.2xlarge
+      - r8a.4xlarge
+      - r8a.large
+      - r8a.xlarge
+      - r8i-flex.2xlarge
+      - r8i-flex.4xlarge
+      - r8i-flex.large
+      - r8i-flex.xlarge
+      - r8i.2xlarge
+      - r8i.4xlarge
+      - r8i.large
+      - r8i.xlarge
+      - r8ib.2xlarge
+      - r8ib.4xlarge
+      - r8ib.large
+      - r8ib.xlarge
+      - r8id.2xlarge
+      - r8id.4xlarge
+      - r8id.large
+      - r8id.xlarge
+      - r8idb.2xlarge
+      - r8idb.4xlarge
+      - r8idb.large
+      - r8idb.xlarge
+      - r8idn.2xlarge
+      - r8idn.4xlarge
+      - r8idn.large
+      - r8idn.xlarge
+      - r8in.2xlarge
+      - r8in.4xlarge
+      - r8in.large
+      - r8in.xlarge
+    - key: kubernetes.io/arch
+      operator: In
+      values:
+      - amd64
+    resources:
+      requests:
+        cpu: 580m
+        memory: 616Mi
+        pods: "9"
+  status:
+    allocatable:
+      cpu: 1930m
+      ephemeral-storage: 44Gi
+      memory: 3114Mi
+      pods: "29"
+      vpc.amazonaws.com/pod-eni: "9"
+    capacity:
+      cpu: "2"
+      ephemeral-storage: 50Gi
+      memory: 3788Mi
+      pods: "29"
+      vpc.amazonaws.com/pod-eni: "9"
+    conditions:
+    - lastTransitionTime: "2026-08-24T06:12:58Z"
+      message: ""
+      observedGeneration: 1
+      reason: Launched
+      status: "True"
+      type: Launched
+    - lastTransitionTime: "2026-08-24T06:13:14Z"
+      message: ""
+      observedGeneration: 1
+      reason: Registered
+      status: "True"
+      type: Registered
+    - lastTransitionTime: "2026-08-24T06:13:27Z"
+      message: ""
+      observedGeneration: 1
+      reason: Initialized
+      status: "True"
+      type: Initialized
+    - lastTransitionTime: "2026-08-24T06:22:58Z"
+      message: ""
+      observedGeneration: 1
+      reason: ConsistentStateFound
+      status: "True"
+      type: ConsistentStateFound
+    - lastTransitionTime: "2026-08-26T06:53:32Z"
+      message: ""
+      observedGeneration: 1
+      reason: Consolidatable
+      status: "True"
+      type: Consolidatable
+    - lastTransitionTime: "2026-08-24T06:13:27Z"
+      message: ""
+      observedGeneration: 1
+      reason: Ready
+      status: "True"
+      type: Ready
+    imageID: ami-0527b71651b58fb01
+    lastPodEventTime: "2026-08-26T06:52:32Z"
+    nodeName: ip-10-0-2-227.us-east-2.compute.internal
+    providerID: aws:///us-east-2a/i-09b09ae8cd06d2a26
+kind: List
+metadata:
+  resourceVersion: ""
