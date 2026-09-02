@@ -14,21 +14,21 @@
         },
         {
             "id": "66VCHSJNUP",
-            "name": "Tank Top",
-            "description": "Perfectly cropped cotton tank, with a scooped neckline.",
-            "picture": "/static/img/products/tank-top.jpg",
+            "name": "ELDECK_Shoes",
+            "description": "Stylish shoes from ELDECK.",
+            "picture": "/static/img/products/ELDECK_Shoes.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
                 "nanos": 990000000
             },
-            "categories": ["clothing", "tops"]
+            "categories": ["footwear"]
         },
         {
             "id": "1YMWWN1N4O",
-            "name": "Watch",
-            "description": "This gold-tone stainless steel watch will work with most of your outfits.",
-            "picture": "/static/img/products/watch.jpg",
+            "name": "King's Staff",
+            "description": "This gold-tone stainless steel King's Staff will work with most of your outfits.",
+            "picture": "/static/img/products/King's Staff.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 109,
@@ -38,9 +38,9 @@
         },
         {
             "id": "L9ECAV7KIM",
-            "name": "Loafers",
+            "name": "Shoes-open slacks crocs",
             "description": "A neat addition to your summer wardrobe.",
-            "picture": "/static/img/products/loafers.jpg",
+            "picture": "/static/img/products/Shoes-open slacks crocs.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 89,
@@ -50,63 +50,63 @@
         },
         {
             "id": "2ZYFJ3GM2N",
-            "name": "Hairdryer",
-            "description": "This lightweight hairdryer has 3 heat and speed settings. It's perfect for travel.",
-            "picture": "/static/img/products/hairdryer.jpg",
+            "name": "Weareable double warlet leather",
+            "description": "This lightweight Weareable double warlet leather has 3 heat and speed settings. It's perfect for travel.",
+            "picture": "/static/img/products/Weareable double warlet leather.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 24,
                 "nanos": 990000000
             },
-            "categories": ["hair", "beauty"]
+            "categories": ["accessories"]
         },
         {
             "id": "0PUK6V6EV0",
-            "name": "Candle Holder",
-            "description": "This small but intricate candle holder is an excellent gift.",
-            "picture": "/static/img/products/candle-holder.jpg",
+            "name": "Men'S Ethnic Traditional Clothing S-Slive Gold",
+            "description": "This small but intricate Men'S Ethnic Traditional Clothing S-Slive Gold is an excellent gift.",
+            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing S-Slive Gold.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
                 "nanos": 990000000
             },
-            "categories": ["decor", "home"]
+            "categories": ["clothing"]
         },
         {
             "id": "LS4PSXUNUM",
-            "name": "Salt & Pepper Shakers",
-            "description": "Add some flavor to your kitchen.",
-            "picture": "/static/img/products/salt-and-pepper-shakers.jpg",
+            "name": "Men'S Ethnic Traditional Clothing",
+            "description": "Beautiful traditional clothing for men.",
+            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
                 "nanos": 490000000
             },
-            "categories": ["kitchen"]
+            "categories": ["clothing"]
         },
         {
             "id": "9SIQT8TOJO",
-            "name": "Bamboo Glass Jar",
-            "description": "This bamboo glass jar can hold 57 oz (1.7 l) and is perfect for any kitchen.",
-            "picture": "/static/img/products/bamboo-glass-jar.jpg",
+            "name": "Men'S Ethnic Traditional Clothing White",
+            "description": "This Men'S Ethnic Traditional Clothing White is a beautiful addition to any wardrobe.",
+            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing White.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 5,
                 "nanos": 490000000
             },
-            "categories": ["kitchen"]
+            "categories": ["clothing"]
         },
         {
             "id": "6E92ZMYYFZ",
-            "name": "Mug",
-            "description": "A simple mug with a mustard interior.",
-            "picture": "/static/img/products/mug.jpg",
+            "name": "Traditional Tie Necklace",
+            "description": "A simple Traditional Tie Necklace with a mustard interior.",
+            "picture": "/static/img/products/Traditional Tie Necklace.jpg",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 8,
                 "nanos": 990000000
             },
-            "categories": ["kitchen"]
+            "categories": ["clothing"]
         }
     ]
 }
