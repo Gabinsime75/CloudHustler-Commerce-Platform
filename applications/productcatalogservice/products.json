@@ -76,7 +76,7 @@
             "id": "LS4PSXUNUM",
             "name": "Men'S Ethnic Traditional Clothing",
             "description": "Beautiful traditional clothing for men.",
-            "picture": "/static/img/products/men-ethnic-traditional-clothing.avif",
+            "picture": "/static/img/products/mens-ethnic-traditional-clothing.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
