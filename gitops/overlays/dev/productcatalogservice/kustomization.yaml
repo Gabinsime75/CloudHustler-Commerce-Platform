@@ -14,4 +14,4 @@ labels:
 images:
   - name: productcatalogservice
     newName: 396913735153.dkr.ecr.us-east-2.amazonaws.com/cloudhusller-commerce-platform-dev/productcatalogservice
-    newTag: f8b09697b9de
+    newTag: d72c6b514c8d
