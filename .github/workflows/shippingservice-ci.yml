@@ -1,6 +1,3 @@
-#===============================================================
-# Shipping Service github actions configuration
-#===============================================================
 name: Shipping Service CI
 
 on:

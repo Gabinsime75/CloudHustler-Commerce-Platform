@@ -1,6 +1,3 @@
-#===============================================================
-# Currency Service github actions configuration
-#===============================================================
 name: Currency Service CI
 on:
   push:

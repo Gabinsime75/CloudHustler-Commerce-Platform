@@ -1,6 +1,3 @@
-#===============================================================
-# Product Catalog Service github actions configuration
-#===============================================================
 name: Product Catalog Service CI
 
 on:

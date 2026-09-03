@@ -1,6 +1,3 @@
-#===============================================================
-# Checkout Service github actions configuration
-#===============================================================
 name: Checkout Service CI
 
 on:
