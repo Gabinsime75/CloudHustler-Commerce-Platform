@@ -24,4 +24,4 @@ images:
 
     # Immutable Git SHA tag produced by GitHub Actions.
     # Replace thf280c4396897  is placeholder with an actual image tag from ECR.
-    newTag: f280c4396897  
+    newTag: e7da48086cfd
