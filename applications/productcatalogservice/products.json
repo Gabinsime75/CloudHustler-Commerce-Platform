@@ -4,7 +4,7 @@
             "id": "OLJCESPC7Z",
             "name": "Sunglasses",
             "description": "Add a modern touch to your outfits with these sleek aviator sunglasses.",
-            "picture": "/static/img/products/sunglasses.jpg",
+            "picture": "/static/img/products/sunglasses.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 19,
@@ -14,9 +14,9 @@
         },
         {
             "id": "66VCHSJNUP",
-            "name": "ELDECK_Shoes",
+            "name": "Eldeck Shoes",
             "description": "Stylish shoes from ELDECK.",
-            "picture": "/static/img/products/ELDECK_Shoes.jpg",
+            "picture": "/static/img/products/eldeck-shoes.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
@@ -28,7 +28,7 @@
             "id": "1YMWWN1N4O",
             "name": "King's Staff",
             "description": "This gold-tone stainless steel King's Staff will work with most of your outfits.",
-            "picture": "/static/img/products/King's Staff.jpg",
+            "picture": "/static/img/products/kings-staff.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 109,
@@ -40,7 +40,7 @@
             "id": "L9ECAV7KIM",
             "name": "Shoes-open slacks crocs",
             "description": "A neat addition to your summer wardrobe.",
-            "picture": "/static/img/products/Shoes-open slacks crocs.jpg",
+            "picture": "/static/img/products/shoes-open-slacks-crocs.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 89,
@@ -52,7 +52,7 @@
             "id": "2ZYFJ3GM2N",
             "name": "Weareable double warlet leather",
             "description": "This lightweight Weareable double warlet leather has 3 heat and speed settings. It's perfect for travel.",
-            "picture": "/static/img/products/Weareable double warlet leather.jpg",
+            "picture": "/static/img/products/wearable-double-wallet-leather.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 24,
@@ -64,7 +64,7 @@
             "id": "0PUK6V6EV0",
             "name": "Men'S Ethnic Traditional Clothing S-Slive Gold",
             "description": "This small but intricate Men'S Ethnic Traditional Clothing S-Slive Gold is an excellent gift.",
-            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing S-Slive Gold.jpg",
+            "picture": "/static/img/products/men-ethnic-traditional-clothing-s-slive-gold.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
@@ -76,7 +76,7 @@
             "id": "LS4PSXUNUM",
             "name": "Men'S Ethnic Traditional Clothing",
             "description": "Beautiful traditional clothing for men.",
-            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing.jpg",
+            "picture": "/static/img/products/men-ethnic-traditional-clothing.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 18,
@@ -88,7 +88,7 @@
             "id": "9SIQT8TOJO",
             "name": "Men'S Ethnic Traditional Clothing White",
             "description": "This Men'S Ethnic Traditional Clothing White is a beautiful addition to any wardrobe.",
-            "picture": "/static/img/products/Men'S Ethnic Traditional Clothing White.jpg",
+            "picture": "/static/img/products/mens-ethnic-traditional-clothing-white.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 5,
@@ -100,7 +100,7 @@
             "id": "6E92ZMYYFZ",
             "name": "Traditional Tie Necklace",
             "description": "A simple Traditional Tie Necklace with a mustard interior.",
-            "picture": "/static/img/products/Traditional Tie Necklace.jpg",
+            "picture": "/static/img/products/traditional-tie-necklace.avif",
             "priceUsd": {
                 "currencyCode": "USD",
                 "units": 8,
